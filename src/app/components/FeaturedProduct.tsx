@@ -97,7 +97,7 @@ export default function FeaturedProduct() {
                             </>}
                         </div>
 
-                        <div className="flex flex-row items-center gap-3">
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                             <Select onValueChange={handleQuantityChange}>
                                 <SelectTrigger className="w-full max-w-48">
                                     <SelectValue placeholder="Select Quantity"/>
@@ -111,7 +111,8 @@ export default function FeaturedProduct() {
                             </Select>
                             <Button
                                 size="lg"
-                                onClick={() => redirectToCheckout(cart?.checkoutUrl as string)}
+                                disabled={!cart?.checkoutUrl}
+                                onClick={() => redirectToCheckout(cart!.checkoutUrl)}
                                 className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white w-full sm:w-auto px-8 h-12"
                             >
                                 Buy Now
