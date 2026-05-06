@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SanaVieta — Master Launch Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFCFA;
+  --white: #FFFFFF;
+  --card: #FFFFFF;
+  --card-hover: #F5F9F5;
+  --green-dark: #1B5E20;
+  --green-mid: #2E7D32;
+  --green-light: #4CAF50;
+  --green-pale: #E8F5E9;
+  --green-faint: #F1F8F1;
+  --gold: #E6A817;
+  --gold-pale: #FFF8E1;
+  --gold-border: #FFE082;
+  --red: #C62828;
+  --red-pale: #FFEBEE;
+  --red-border: #FFCDD2;
+  --blue: #1565C0;
+  --blue-pale: #E3F2FD;
+  --blue-border: #BBDEFB;
+  --text: #1B2E1B;
+  --text-mid: #3E5A3E;
+  --text-dim: #6B7D6B;
+  --border: #D7E5D7;
+  --border-light: #E8F0E8;
+  --r: 10px;
+  --shadow: 0 1px 3px rgba(27,94,32,0.06), 0 1px 2px rgba(27,94,32,0.04);
+  --shadow-md: 0 4px 12px rgba(27,94,32,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; overflow-x: auto;
+  scrollbar-width: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.nav::-webkit-scrollbar { display: none; }
+.nb {
+  flex-shrink: 0;
+  padding: 14px 18px;
+  background: none; border: none;
+  color: var(--text-dim);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600; font-size: 11.5px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: .2s;
+  white-space: nowrap;
+}
+.nb:hover { color: var(--green-mid); background: var(--green-faint); }
+.nb.a { color: var(--green-dark); border-bottom-color: var(--green-light); }
+
+/* ── HERO ── */
+.hero {
+  padding: 52px 28px 36px;
+  max-width: 940px; margin: 0 auto;
+  text-align: center;
+}
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--green-pale);
+  border: 1px solid #C8E6C9;
+  border-radius: 100px;
+  color: var(--green-dark);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(26px, 4.5vw, 42px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: var(--green-dark);
+}
+.hero p {
+  color: var(--text-dim);
+  font-size: 15px;
+  max-width: 620px; margin: 0 auto;
+}
+
+/* ── STATS ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 14px;
+  max-width: 940px; margin: 0 auto 44px;
+  padding: 0 28px;
+}
+.stat {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.stat .n {
+  font-family: 'Source Serif 4', serif;
+  font-size: 26px; font-weight: 800;
+  color: var(--green-dark);
+}
+.stat .l {
+  font-size: 11px; color: var(--text-dim);
+  margin-top: 3px; text-transform: uppercase;
+  letter-spacing: 0.5px; font-weight: 500;
+}
+
+/* ── SECTIONS ── */
+.s { display: none; padding: 0 28px 60px; max-width: 940px; margin: 0 auto; }
+.s.a { display: block; animation: fu .3s ease; }
+@keyframes fu { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.s h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 6px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--green-pale);
+}
+.s h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 18px; font-weight: 700;
+  margin: 30px 0 10px;
+  color: var(--green-dark);
+}
+.s h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 700;
+  margin: 18px 0 6px;
+  color: var(--green-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.s p, .s li { color: var(--text-mid); font-size: 14px; line-height: 1.8; }
+.s strong { color: var(--text); }
+.s a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+.s a:hover { text-decoration: underline; }
+.s ul, .s ol { padding-left: 18px; margin: 6px 0 14px; }
+.s li { margin-bottom: 5px; }
+
+/* ── CARDS ── */
+.c {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px;
+  margin: 14px 0;
+  box-shadow: var(--shadow);
+  transition: .15s;
+}
+.c:hover { box-shadow: var(--shadow-md); }
+.ct {
+  font-family: 'Source Serif 4', serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media (max-width: 740px) { .g3 { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .g2 { grid-template-columns: 1fr; } }
+
+/* ── TAGS ── */
+.t {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--green-pale);
+  border: 1px solid #C8E6C9;
+  border-radius: 5px;
+  font-size: 11px;
+  color: var(--green-dark);
+  font-weight: 600;
+  margin: 2px 4px 2px 0;
+}
+.t.y { background: var(--gold-pale); border-color: var(--gold-border); color: #8D6E00; }
+.t.r { background: var(--red-pale); border-color: var(--red-border); color: var(--red); }
+.t.b { background: var(--blue-pale); border-color: var(--blue-border); color: var(--blue); }
+
+/* ── TABLES ── */
+.tb { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+.tb th, .tb td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+.tb th {
+  background: var(--green-faint);
+  color: var(--green-dark);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.tb td { color: var(--text-mid); }
+.tb td:last-child { color: var(--green-dark); font-weight: 600; }
+.tb tr:hover td { background: var(--green-faint); }
+
+/* ── HIGHLIGHTS ── */
+.hl {
+  background: var(--green-faint);
+  border-left: 3px solid var(--green-light);
+  padding: 16px 20px;
+  border-radius: 0 var(--r) var(--r) 0;
+  margin: 16px 0;
+}
+.hl p { color: var(--text); }
+.hl.warn {
+  background: var(--gold-pale);
+  border-left-color: var(--gold);
+}
+.hl.danger {
+  background: var(--red-pale);
+  border-left-color: var(--red);
+}
+.hl.danger p { color: #5D0000; }
+.hl.blue {
+  background: var(--blue-pale);
+  border-left-color: var(--blue);
+}
+
+/* ── DIFFICULTY BAR ── */
+.db { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+.dt { flex: 1; height: 8px; background: #E8F0E8; border-radius: 4px; overflow: hidden; }
+.df { height: 100%; border-radius: 4px; }
+.dl { font-size: 12px; font-weight: 700; min-width: 32px; }
+
+/* ── CHECKLIST ── */
+.cl { list-style: none; padding: 0; }
+.cl li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 13px;
+}
+.cl li:last-child { border-bottom: none; }
+.cb {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border: 2px solid var(--green-light);
+  border-radius: 4px;
+  margin-top: 2px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: white;
+  transition: .15s;
+  background: white;
+}
+.cb.x { background: var(--green-light); }
+
+/* ── TIMELINE ── */
+.tl { position: relative; padding-left: 28px; margin: 16px 0; }
+.tl::before {
+  content: '';
+  position: absolute; left: 6px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--green-light), var(--green-pale));
+}
+.ti { position: relative; margin-bottom: 22px; }
+.ti::before {
+  content: '';
+  position: absolute; left: -24px; top: 7px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--green-light);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 2px var(--green-light);
+}
+.ti .tl-l {
+  font-size: 12px; font-weight: 700;
+  color: var(--green-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+.ti p { font-size: 13px; color: var(--text-mid); }
+
+/* ── SEPARATOR ── */
+.sep { height: 1px; background: var(--border); margin: 30px 0; }
+
+/* ── PRICE CARDS ── */
+.price-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px 20px;
+  text-align: center;
+  transition: .2s;
+}
+.price-card:hover { box-shadow: var(--shadow-md); }
+.price-card.featured { border-color: var(--green-light); box-shadow: 0 0 0 1px var(--green-light), var(--shadow-md); }
+.price-card.gold { border-color: var(--gold); }
+.price-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.price-num { font-family: 'Source Serif 4', serif; font-size: 32px; font-weight: 800; color: var(--green-dark); }
+.price-sub { font-size: 12px; color: var(--text-dim); margin: 4px 0 12px; }
+.price-save { font-size: 12px; font-weight: 600; }
+.featured-badge {
+  display: inline-block;
+  background: var(--green-light);
+  color: white;
+  padding: 3px 14px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 40px 28px;
+  color: var(--text-dim);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  max-width: 940px; margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="tabs">
+  <button class="nb a" data-t="market">1. Market</button>
+  <button class="nb" data-t="product">2. Product</button>
+  <button class="nb" data-t="finance">3. Financials</button>
+  <button class="nb" data-t="pricing">4. Pricing</button>
+  <button class="nb" data-t="marketing">5. Marketing</button>
+  <button class="nb" data-t="store">6. Shopify</button>
+  <button class="nb" data-t="psych">7. UX Psych</button>
+  <button class="nb" data-t="retention">8. Retention</button>
+  <button class="nb" data-t="compliance">9. Compliance</button>
+  <button class="nb" data-t="roadmap">10. Roadmap</button>
+  <button class="nb" data-t="checklist">11. Checklist</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="badge">SanaVieta — Lymph System Support</span>
+  <h1>Master Launch Plan</h1>
+  <p>Complete end-to-end strategy for launching a premium lymphatic system support supplement targeting adults 60+. Numbers-driven, execution-ready.</p>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="n">$69</div><div class="l">MSRP / Bottle</div></div>
+  <div class="stat"><div class="n">$8.70</div><div class="l">Mfg Cost / Unit</div></div>
+  <div class="stat"><div class="n">~75%</div><div class="l">Gross Margin</div></div>
+  <div class="stat"><div class="n">60+</div><div class="l">Target Demo</div></div>
+  <div class="stat"><div class="n">1,500</div><div class="l">Initial Units</div></div>
+</div>
+
+<!-- ═══════════ 1. MARKET ═══════════ -->
+<section class="s a" id="market">
+<h2>1. Market & Customer Analysis</h2>
+<p>The 60+ lymphatic health market sits at the intersection of aging-related circulation concerns and a growing interest in holistic wellness among seniors.</p>
+
+<h3>Psychological Profile of 60+ Buyers</h3>
+<div class="c">
+<p>The senior supplement buyer is fundamentally different from younger demographics. They are <strong>research-heavy, brand-loyal, and risk-averse</strong>. Their purchase journey is longer (often 2–4 weeks from awareness to purchase) but their lifetime value is significantly higher due to consistent reordering habits.</p>
+<ul>
+<li><strong>Decision-making style:</strong> Methodical. They read full product pages, ingredient lists, and reviews. They often print information or share it with a spouse or caregiver before buying.</li>
+<li><strong>Information sources they trust:</strong> Doctor recommendations → peer reviews → brand claims. Media mentions (TV, newspapers, recognized publications) carry outsized weight vs. influencer endorsements.</li>
+<li><strong>Technology comfort:</strong> Most are competent online shoppers (Amazon, Walmart.com) but struggle with complex checkout flows, tiny fonts, or excessive pop-ups.</li>
+<li><strong>Financial mindset:</strong> Not price-sensitive in the way you'd expect — they'll pay premium for perceived quality and trust. But they deeply resent feeling "tricked" by subscription traps, hidden fees, or aggressive upsells.</li>
+</ul>
+</div>
+
+<h3>Primary Pain Points</h3>
+<div class="g3">
+<div class="c"><div class="ct">🦵 Swelling & Fluid Retention</div><p>Leg, ankle, and foot swelling. The #1 daily frustration. Many have tried compression socks with limited results. Emotionally tied to loss of mobility and independence.</p></div>
+<div class="c"><div class="ct">🔄 Poor Circulation</div><p>Cold extremities, numbness, heaviness in legs. Worsens with sedentary lifestyle post-retirement. Creates anxiety about deeper health issues.</p></div>
+<div class="c"><div class="ct">💪 Inflammation</div><p>Chronic low-grade inflammation, joint stiffness. Supplements perceived as safer alternative to long-term NSAID use which doctors increasingly warn against.</p></div>
+</div>
+<div class="g3">
+<div class="c"><div class="ct">⚡ Low Energy</div><p>"Sluggish" feeling attributed to poor lymph drainage. Energy is directly tied to independence and quality of life for this demographic.</p></div>
+<div class="c"><div class="ct">🛡️ Immune Weakness</div><p>Post-COVID heightened awareness. Frequent colds feel more threatening with age. Lymphatic health positioned as immune foundation.</p></div>
+<div class="c"><div class="ct">🪞 Skin & Appearance</div><p>Puffiness, under-eye bags, dull complexion. Reinforces the "something isn't working right" feeling that motivates action.</p></div>
+</div>
+
+<h3>Buying Triggers</h3>
+<div class="c">
+<ul>
+<li><strong>Doctor mention:</strong> "My doctor said I should look into lymphatic support" — the #1 trigger. Even a vague mention creates immediate action.</li>
+<li><strong>Visible worsening:</strong> Shoes don't fit, rings feel tight, legs more swollen than usual. Physical evidence creates urgency.</li>
+<li><strong>Peer recommendation:</strong> A friend or family member reports positive experience. Senior word-of-mouth is incredibly powerful.</li>
+<li><strong>Health scare:</strong> Post-surgery, post-hospitalization, new diagnosis. Creates immediate receptiveness.</li>
+<li><strong>Seasonal triggers:</strong> Summer heat worsens swelling. January "new year, new health" motivation.</li>
+</ul>
+</div>
+
+<h3>Trust Factors & Skepticism</h3>
+<div class="hl warn">
+<p><strong>Critical insight:</strong> Seniors have been marketed to aggressively for decades. Your #1 job is overcoming deep-seated skepticism — not by being louder, but by being more trustworthy than competitors.</p>
+</div>
+<div class="g2">
+<div class="c">
+<div class="ct" style="color:var(--green-dark)">✅ Builds Trust</div>
+<ul>
+<li>Doctor endorsements (real, named, with credentials)</li>
+<li>Third-party lab testing badges</li>
+<li>"Made in USA" with specific facility details</li>
+<li>Clear money-back guarantee</li>
+<li>Phone number prominently displayed</li>
+<li>Real customer reviews with photos and ages</li>
+<li>5–8 trust signals needed on product page</li>
+</ul>
+</div>
+<div class="c">
+<div class="ct" style="color:var(--red)">❌ Destroys Trust</div>
+<ul>
+<li>Hype language ("miracle," "breakthrough")</li>
+<li>Fake urgency timers</li>
+<li>Hidden subscription opt-ins</li>
+<li>Tiny unreadable terms text</li>
+<li>Stock photos of models</li>
+<li>Claims that sound too good to be true</li>
+<li>Aggressive countdown pressure tactics</li>
+</ul>
+</div>
+</div>
+
+<h3>Emotional Drivers</h3>
+<div class="g2">
+<div class="c"><div class="ct">🎯 Independence</div><p>"I don't want to be a burden." The single most powerful emotional driver. Anything that helps maintain self-sufficiency resonates deeply.</p></div>
+<div class="c"><div class="ct">💛 Vitality & Presence</div><p>"I want to keep up with my grandchildren." Not about looking young — about feeling functional, present, and capable of participating in life.</p></div>
+<div class="c"><div class="ct">🧘 Comfort & Relief</div><p>"I just want to feel normal again." Seeking baseline comfort. The reduction of daily discomfort is more motivating than dramatic transformation.</p></div>
+<div class="c"><div class="ct">🔒 Control Over Health</div><p>"I want to do something proactive." Supplements give them agency. Self-directed action equals empowerment.</p></div>
+</div>
+
+<h3>60+ vs. Younger Buyers</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Factor</th><th>25–45 Buyer</th><th>60+ Buyer</th></tr>
+<tr><td>Purchase speed</td><td>Impulse (same session)</td><td>Considered (days to weeks)</td></tr>
+<tr><td>Key influence</td><td>Influencers, social proof</td><td>Doctors, peers, publications</td></tr>
+<tr><td>Price sensitivity</td><td>High — comparison shops</td><td>Moderate — values quality</td></tr>
+<tr><td>Subscription attitude</td><td>Default expectation</td><td>Suspicious — needs transparency</td></tr>
+<tr><td>Content consumption</td><td>Video, short-form, social</td><td>Long-form text, email, TV</td></tr>
+<tr><td>Return likelihood</td><td>Low</td><td>Higher — will call, will use guarantee</td></tr>
+<tr><td>Reorder behavior</td><td>Inconsistent</td><td>Very consistent once trust established</td></tr>
+<tr><td>LTV potential</td><td>Lower (brand-switches)</td><td>Higher (loyal for years)</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ═══════════ 2. PRODUCT ═══════════ -->
+<section class="s" id="product">
+<h2>2. Product Strategy</h2>
+
+<h3>Positioning Angle</h3>
+<div class="hl">
+<p><strong>Primary: "Natural Lymphatic Flow Support"</strong> — positioned at the intersection of circulation support and gentle detox. The frame: <em>"Your lymphatic system doesn't have a pump — it needs daily support to keep fluid moving, toxins clearing, and your body feeling light and comfortable."</em></p>
+</div>
+<div class="c">
+<p><strong>Positioning hierarchy:</strong></p>
+<ol>
+<li><strong>Comfort & Relief</strong> — "Feel lighter, less swollen, more comfortable daily"</li>
+<li><strong>Circulation Support</strong> — "Support healthy fluid movement throughout your body"</li>
+<li><strong>Immune Foundation</strong> — "Your lymphatic system is the backbone of immunity"</li>
+<li><strong>Vitality</strong> — "Feel the energy that comes when your body flows freely"</li>
+</ol>
+</div>
+
+<h3>Unique Mechanism Hook</h3>
+<div class="c">
+<div class="ct">The "Lymph Flow Activation" Concept</div>
+<p>Unlike the heart, the lymphatic system has no pump. It relies on muscle movement, breathing, and specific botanical compounds to keep fluid circulating. Position SanaVieta's formula as a daily "activation" for this forgotten system.</p>
+<p style="margin-top:10px"><strong>The hook:</strong> <em>"The system your doctor never talks about — but controls everything from swelling to immunity."</em></p>
+<ul style="margin-top:10px">
+<li>Never claim to "cure" or "treat" — always "support," "promote," "maintain"</li>
+<li>Educate first, sell second. Education IS the sales mechanism</li>
+<li>Reference published research on individual ingredients (not your specific formula)</li>
+</ul>
+</div>
+
+<h3>Suggested Formula Direction</h3>
+<div class="hl warn">
+<p><strong>Disclaimer:</strong> These are ingredient category suggestions for discussion with your co-manufacturer's R&D team. Not medical advice. Final formulation must be developed by qualified formulators with cGMP compliance.</p>
+</div>
+<div class="c">
+<table class="tb">
+<tr><th>Ingredient Category</th><th>Function</th><th>Notes</th></tr>
+<tr><td>Echinacea (root extract)</td><td>Lymphatic movement, immune support</td><td>Well-studied. Strong marketing story.</td></tr>
+<tr><td>Cleavers (Galium aparine)</td><td>Traditional lymphatic tonic</td><td>Herbalist staple for lymph drainage.</td></tr>
+<tr><td>Red Root (Ceanothus)</td><td>Lymph node support</td><td>Less common = differentiation.</td></tr>
+<tr><td>Turmeric / Curcumin</td><td>Inflammation modulation</td><td>Very high consumer recognition.</td></tr>
+<tr><td>Ginger Root</td><td>Circulation support</td><td>Familiar, trusted by seniors.</td></tr>
+<tr><td>Selenium / Zinc</td><td>Immune cofactors</td><td>Recognized essential nutrients.</td></tr>
+<tr><td>Astragalus</td><td>Immune & adaptogenic</td><td>Strong traditional medicine backing.</td></tr>
+</table>
+</div>
+
+<h3>Packaging Psychology for Seniors</h3>
+<div class="g2">
+<div class="c">
+<div class="ct" style="color:var(--green-dark)">✅ Do</div>
+<ul>
+<li>Large, readable font (14pt+ for key info)</li>
+<li>High-contrast text (dark on white)</li>
+<li>Clean, clinical design (Thorne-style)</li>
+<li>Easy-open caps (arthritis-friendly)</li>
+<li>Clear dosage instructions printed prominently</li>
+<li>Matte finish, minimal distractions</li>
+<li>"Made in USA" badge visible from 3 feet</li>
+</ul>
+</div>
+<div class="c">
+<div class="ct" style="color:var(--red)">❌ Don't</div>
+<ul>
+<li>Neon colors, aggressive branding</li>
+<li>Tiny ingredient text requiring magnification</li>
+<li>Overly complex cap mechanisms</li>
+<li>Busy label designs with competing visuals</li>
+<li>Black bottles (hard to read labels)</li>
+<li>Plastic pouches (feel untrustworthy)</li>
+<li>QR codes as primary info source</li>
+</ul>
+</div>
+</div>
+<div class="hl">
+<p><strong>Packaging reference:</strong> Your Thorne Liver Cleanse image is an excellent benchmark. Clean, clinical, premium white bottle, watercolor-style accent graphics, minimalist typography. SanaVieta should match this tier.</p>
+</div>
+
+<h3>Naming & Brand</h3>
+<div class="c">
+<p><strong>"SanaVieta"</strong> works excellently for the 60+ demographic:</p>
+<ul>
+<li><strong>Latin/Italian resonance:</strong> "Sana" (healthy) + "Vita" (life) — evokes tradition, natural medicine, timelessness</li>
+<li><strong>Pronunciation:</strong> Intuitive for English speakers. No awkward phonetics.</li>
+<li><strong>Premium positioning:</strong> Similar naming pattern to Solgar, Metagenics, Thorne</li>
+<li><strong>Product name:</strong> "SanaVieta Lymph Flow Support" — clear, descriptive, benefit-oriented</li>
+</ul>
+</div>
+
+<h3>Offer Structure</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Tier</th><th>Price</th><th>Per Bottle</th><th>Savings</th><th>Purpose</th></tr>
+<tr><td>1 Bottle (Trial)</td><td>$69.00</td><td>$69.00</td><td>—</td><td>Entry / trust test</td></tr>
+<tr><td>3 Bottles (Most Popular)</td><td>$176.25</td><td>$58.75</td><td>15%</td><td>Sweet spot — best conversion</td></tr>
+<tr><td>6 Bottles (Best Value)</td><td>$310.50</td><td>$51.75</td><td>25%</td><td>Max AOV — committed buyers</td></tr>
+<tr><td>Monthly Subscription</td><td>$59.00/mo</td><td>$59.00</td><td>15%</td><td>LTV engine — recurring revenue</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ═══════════ 3. FINANCIALS ═══════════ -->
+<section class="s" id="finance">
+<h2>3. Financial Model</h2>
+<p>Based on your spreadsheet: $69 MSRP, $8.70 mfg cost, 1,500 initial units, $23,250 startup costs.</p>
+
+<h3>Unit Economics — Single Bottle</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Line Item</th><th>Amount</th><th>Notes</th></tr>
+<tr><td>Retail Price (MSRP)</td><td>$69.00</td><td></td></tr>
+<tr><td>Manufacturing Cost</td><td>–$8.70</td><td>Per unit at 1,500 run</td></tr>
+<tr><td>Packaging + Handling</td><td>–$1.05</td><td>Bottle, label, insert</td></tr>
+<tr><td>Shipping / Order</td><td>–$6.50</td><td>USPS/UPS avg</td></tr>
+<tr><td>Merchant Fees (3%)</td><td>–$2.07</td><td>Shopify Payments</td></tr>
+<tr><td>Refund Buffer (7%)</td><td>–$4.83</td><td>Higher for 60+ w/ guarantee</td></tr>
+<tr><td><strong>All-In Cost / Bottle</strong></td><td><strong>$23.15</strong></td><td>Excluding CAC</td></tr>
+<tr><td><strong>Gross Profit / Bottle</strong></td><td><strong>$45.85</strong></td><td>66.4% margin pre-marketing</td></tr>
+</table>
+</div>
+
+<h3>CAC Scenarios</h3>
+<div class="g3">
+<div class="c" style="border-left:3px solid var(--green-light)">
+<div class="ct" style="color:var(--green-dark)">🟢 Low: $25</div>
+<p><strong>Profit after CAC:</strong> $20.85/unit<br><strong>Margin:</strong> 30.2%</p>
+<p>Achievable with organic content, SEO, email.</p>
+</div>
+<div class="c" style="border-left:3px solid var(--gold)">
+<div class="ct" style="color:#8D6E00">🟡 Medium: $40</div>
+<p><strong>Profit after CAC:</strong> $5.85/unit<br><strong>Margin:</strong> 8.5%</p>
+<p>Typical for Meta Ads to 60+. Viable with subs.</p>
+</div>
+<div class="c" style="border-left:3px solid var(--red)">
+<div class="ct" style="color:var(--red)">🔴 High: $55</div>
+<p><strong>Profit after CAC:</strong> –$9.15/unit<br><strong>Margin:</strong> –13.3%</p>
+<p>First-purchase loss. Only viable if retention >3mo.</p>
+</div>
+</div>
+
+<h3>Bundle Profitability</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Metric</th><th>1 Bottle</th><th>3 Bottles</th><th>6 Bottles</th></tr>
+<tr><td>Revenue</td><td>$69.00</td><td>$176.25</td><td>$310.50</td></tr>
+<tr><td>Price / Bottle</td><td>$69.00</td><td>$58.75</td><td>$51.75</td></tr>
+<tr><td>Total COGS</td><td>$9.75</td><td>$29.25</td><td>$58.50</td></tr>
+<tr><td>Shipping</td><td>$6.50</td><td>$6.50</td><td>$6.50</td></tr>
+<tr><td>Merchant Fees</td><td>$2.07</td><td>$5.29</td><td>$9.32</td></tr>
+<tr><td>Refund Buffer</td><td>$3.55</td><td>$9.46</td><td>$16.55</td></tr>
+<tr><td>CAC</td><td>$40.00</td><td>$40.00</td><td>$40.00</td></tr>
+<tr><td><strong>Net Profit</strong></td><td><strong>$7.13</strong></td><td><strong>$85.75</strong></td><td><strong>$179.63</strong></td></tr>
+<tr><td><strong>Margin</strong></td><td><strong>10.3%</strong></td><td><strong>48.7%</strong></td><td><strong>57.9%</strong></td></tr>
+</table>
+</div>
+<div class="hl">
+<p><strong>Key insight:</strong> Single bottles barely break even at $40 CAC. The business model REQUIRES pushing buyers toward 3-bottle bundles or subscriptions. Your product page must make the 3-bottle the obvious choice.</p>
+</div>
+
+<h3>Subscription Economics</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Metric</th><th>Value</th><th>Notes</th></tr>
+<tr><td>Monthly Sub Price</td><td>$59.00</td><td>15% off MSRP</td></tr>
+<tr><td>Monthly COGS + Ship + Fees</td><td>$17.18</td><td>All-in per shipment</td></tr>
+<tr><td>Monthly Net Profit</td><td>$41.82</td><td>Before CAC amortization</td></tr>
+<tr><td>CAC Payback</td><td>Month 1</td><td>Recovered in first shipment</td></tr>
+<tr><td>Average Retention Target</td><td>4–6 months</td><td>Seniors retain longer</td></tr>
+<tr><td>6-Month LTV</td><td>$250.92</td><td>$41.82 × 6</td></tr>
+<tr><td>LTV:CAC Ratio</td><td>6.3:1</td><td>Target is 3:1+</td></tr>
+</table>
+</div>
+
+<h3>Startup Costs & Break-Even</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Item</th><th>Cost</th></tr>
+<tr><td>Manufacturing (1,500 units)</td><td>$16,000</td></tr>
+<tr><td>Third-Party Lab Testing</td><td>$1,500</td></tr>
+<tr><td>LLC Formation</td><td>$400</td></tr>
+<tr><td>Trademark Filing</td><td>$350</td></tr>
+<tr><td>Product Liability Insurance</td><td>$3,500</td></tr>
+<tr><td>Shopify + Theme</td><td>$500</td></tr>
+<tr><td>FDA Label Review (est.)</td><td>$1,000</td></tr>
+<tr><td><strong>Total Startup</strong></td><td><strong>$23,250</strong></td></tr>
+</table>
+<p style="margin-top:12px"><strong>Break-even with blended AOV</strong> (70% 3-packs, 20% singles, 10% 6-packs): <strong>~200–300 orders</strong></p>
+</div>
+
+<h3>Cash Flow Risks</h3>
+<div class="hl danger">
+<p><strong>⚠️ Key risks to monitor:</strong></p>
+<ul style="margin-top:6px">
+<li><strong>Inventory float:</strong> $16K tied up before first sale</li>
+<li><strong>Refund rate:</strong> Model 10% worst case (60+ uses guarantees)</li>
+<li><strong>Ad spend lag:</strong> $2–4K spend before meaningful revenue (30–60 day cycle)</li>
+<li><strong>Chargebacks:</strong> Seniors more likely to call bank vs. process return online. Budget 1–2% extra.</li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════ 4. PRICING ═══════════ -->
+<section class="s" id="pricing">
+<h2>4. Pricing & Offer Architecture</h2>
+
+<h3>Price Point Psychology for 60+</h3>
+<div class="c">
+<ul>
+<li><strong>Below $49:</strong> Perceived as "too cheap to work." Seniors associate low price with low quality.</li>
+<li><strong>$59–$79:</strong> Optimal range. Serious enough to feel "real" but not prohibitive.</li>
+<li><strong>Above $89:</strong> Requires significantly more proof. Only for multi-ingredient premium stacks.</li>
+</ul>
+<p style="margin-top:8px"><strong>$69 positions SanaVieta as premium but accessible — right where you need to be.</strong></p>
+</div>
+
+<h3>Product Page Bundle Display</h3>
+<div class="g3" style="margin-top:16px">
+<div class="price-card">
+<div class="price-label" style="color:var(--text-dim)">Starter</div>
+<div class="price-num">$69</div>
+<div class="price-sub">1 Bottle · 30 Day Supply</div>
+<div class="price-save" style="color:var(--text-dim)">Free Shipping</div>
+</div>
+<div class="price-card featured">
+<div class="featured-badge">Most Popular</div>
+<div class="price-num" style="color:var(--green-dark)">$176</div>
+<div class="price-sub">3 Bottles · $58.75 each · 90 Days</div>
+<div class="price-save" style="color:var(--green-dark)">Save 15% + Free Shipping</div>
+</div>
+<div class="price-card gold">
+<div class="price-label" style="color:#8D6E00">Best Value</div>
+<div class="price-num" style="color:#8D6E00">$311</div>
+<div class="price-sub">6 Bottles · $51.75 each · 180 Days</div>
+<div class="price-save" style="color:#8D6E00">Save 25% + Free Shipping</div>
+</div>
+</div>
+
+<h3>Risk Reversal — Guarantee</h3>
+<div class="hl">
+<p><strong>Recommended: 180-Day Money-Back Guarantee.</strong> Not 365 (excessive refund liability with 60+ who will actually use it). Not 30 (not enough time for supplement effects; feels stingy). Frame: <em>"If you don't feel a meaningful difference in 6 months, we'll refund every penny. No questions, no hassle."</em></p>
+</div>
+
+<h3>Value Stacking (Zero COGS Additions)</h3>
+<div class="c">
+<ul>
+<li><strong>Free e-book:</strong> "The Complete Guide to Lymphatic Health" — PDF, $0 to produce</li>
+<li><strong>Free shipping</strong> on all orders (baked into price — seniors hate paying shipping separately)</li>
+<li><strong>Printed insert:</strong> "5 Daily Lymph-Boosting Exercises" card — costs $0.15 to print</li>
+<li><strong>Phone support line:</strong> Real number. Phone access = trust for seniors. ~$30/mo virtual phone.</li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════ 5. MARKETING ═══════════ -->
+<section class="s" id="marketing">
+<h2>5. Marketing Strategy</h2>
+
+<h3>Channel Priority for 60+</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Channel</th><th>Priority</th><th>Why</th><th>Est. CAC</th></tr>
+<tr><td>Facebook Ads</td><td><span class="t">Primary</span></td><td>60+ is fastest-growing FB demo. Long-form copy works well.</td><td>$30–55</td></tr>
+<tr><td>YouTube Ads</td><td><span class="t">Primary</span></td><td>60+ watches more YouTube than any other group. Educational style.</td><td>$25–45</td></tr>
+<tr><td>Google Search</td><td><span class="t b">Secondary</span></td><td>High-intent "lymphatic support supplement" searches.</td><td>$20–40</td></tr>
+<tr><td>Email / Klaviyo</td><td><span class="t">Primary</span></td><td>Seniors check email daily. 25–35% open rates.</td><td>$5–15</td></tr>
+<tr><td>SEO / Blog</td><td><span class="t b">Long-term</span></td><td>"Why are my legs swollen" = massive organic opportunity.</td><td>$0–10</td></tr>
+<tr><td>TikTok</td><td><span class="t r">Low</span></td><td>Growing 60+ presence but still small. Test later.</td><td>Unknown</td></tr>
+</table>
+</div>
+
+<h3>Messaging Tone — Critical</h3>
+<div class="hl warn">
+<p><strong>Biggest mistake:</strong> Talking to seniors like they're fragile or clueless. They respond to messaging that treats them as intelligent adults who deserve straight answers — not condescending language or fear-mongering.</p>
+</div>
+<div class="g2">
+<div class="c">
+<div class="ct" style="color:var(--green-dark)">✅ Tone That Converts</div>
+<ul>
+<li>Respectful, warm, knowledgeable</li>
+<li>"You deserve to feel comfortable"</li>
+<li>Factual, ingredient-specific claims</li>
+<li>Acknowledges their intelligence</li>
+<li>"Here's what the research says…"</li>
+<li>Long-form educational content</li>
+</ul>
+</div>
+<div class="c">
+<div class="ct" style="color:var(--red)">❌ Tone That Repels</div>
+<ul>
+<li>"At your age…" (condescending)</li>
+<li>"DEADLY toxin buildup!" (fear-mongering)</li>
+<li>"ELIMINATES swelling in 7 days!" (overpromising)</li>
+<li>"BREAKTHROUGH MIRACLE!" (hype)</li>
+<li>"Only 3 left! Buy NOW!" (pressure)</li>
+<li>Influencer-style testimonials</li>
+</ul>
+</div>
+</div>
+
+<h3>Creative Angles & Hooks</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Angle</th><th>Hook</th><th>Format</th></tr>
+<tr><td>Education</td><td>"The body system your doctor never mentions — but controls swelling, immunity, and energy"</td><td>Long-form FB / Blog</td></tr>
+<tr><td>Problem</td><td>"If your legs feel heavier than a year ago, here's what may be happening"</td><td>FB video / YouTube</td></tr>
+<tr><td>Social proof</td><td>"Margaret tried everything for her ankles. Then her friend recommended this."</td><td>UGC-style video</td></tr>
+<tr><td>Authority</td><td>"What doctors wish patients knew about their lymphatic system"</td><td>Advertorial / VSL</td></tr>
+<tr><td>Mechanism</td><td>"Your lymphatic system has no pump. Here's what that means after 60."</td><td>Educational video</td></tr>
+</table>
+</div>
+
+<h3>Landing Page Structure</h3>
+<div class="c">
+<ol>
+<li><strong>Headline:</strong> Problem-aware. "Finally, comfortable legs — all day long."</li>
+<li><strong>Subhead:</strong> Mechanism. "Support your lymphatic system — the forgotten key to reducing swelling."</li>
+<li><strong>Trust bar:</strong> Made in USA · GMP Certified · 180-Day Guarantee · Third-Party Tested</li>
+<li><strong>Problem section:</strong> 3–4 paragraphs describing their pain — mirror their language exactly</li>
+<li><strong>Education:</strong> What the lymphatic system does. Simple diagram. "Why no one talks about it."</li>
+<li><strong>Solution:</strong> Introduce SanaVieta. Ingredients with research citations.</li>
+<li><strong>Social proof:</strong> Reviews from customers 60+ with names, ages, photos</li>
+<li><strong>Offer:</strong> Bundle pricing with 3-bottle pre-selected</li>
+<li><strong>Guarantee:</strong> 180-day money-back, prominently displayed</li>
+<li><strong>FAQ:</strong> Address top 8–10 objections</li>
+<li><strong>Final CTA:</strong> Repeat offer with urgency (seasonal, not fake scarcity)</li>
+</ol>
+</div>
+</section>
+
+<!-- ═══════════ 6. SHOPIFY ═══════════ -->
+<section class="s" id="store">
+<h2>6. Shopify Store Strategy</h2>
+
+<h3>Theme & Visual Direction</h3>
+<div class="hl">
+<p><strong>White, clean, health-oriented — matching your SanaVieta brand book.</strong> White background, dark green typography (#1B5E20), light green accents (#4CAF50), ample whitespace, serif headings for trustworthiness, sans-serif body for readability. Think: Thorne + PureHealth meets medical journal.</p>
+</div>
+<div class="c">
+<div class="ct">Recommended Themes</div>
+<table class="tb">
+<tr><th>Theme</th><th>Price</th><th>Why</th></tr>
+<tr><td><strong>Impulse</strong> (top pick)</td><td>$380</td><td>Best mega menus, trust badges, rich product pages. Highly customizable.</td></tr>
+<tr><td>Venue</td><td>$350</td><td>Clean, minimalist. Built-in trust elements. Fast launch.</td></tr>
+<tr><td>Dawn (free)</td><td>$0</td><td>MVP option. Minimalist, fast. Lacks advanced features.</td></tr>
+</table>
+</div>
+
+<h3>Typography & Readability for 60+</h3>
+<div class="c">
+<ul>
+<li><strong>Body text:</strong> Minimum 16px (ideally 18px). Line-height 1.7–1.8. Sans-serif (Inter, Source Sans).</li>
+<li><strong>Headings:</strong> Serif font (Source Serif, Georgia) for trustworthiness and readability. 24–32px.</li>
+<li><strong>Buttons:</strong> Minimum 48px height. Large, clear text. High contrast green on white or white on green.</li>
+<li><strong>Color contrast:</strong> WCAG AA minimum. Dark green text (#1B5E20) on white background passes easily.</li>
+<li><strong>Line length:</strong> Max 70 characters per line. Wider text blocks = harder to read for aging eyes.</li>
+<li><strong>Avoid:</strong> Light gray text, thin fonts, italics for body copy, tiny link text.</li>
+</ul>
+</div>
+
+<h3>Page Hierarchy</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Page</th><th>Purpose</th><th>Priority</th></tr>
+<tr><td>Homepage</td><td>Trust, brand story, hero product showcase</td><td><span class="t">Essential</span></td></tr>
+<tr><td>Product Page (Lymph Flow Support)</td><td>The conversion engine. This is where sales happen.</td><td><span class="t">Essential</span></td></tr>
+<tr><td>About / Our Story</td><td>Build trust. Who is behind SanaVieta? Why?</td><td><span class="t">Essential</span></td></tr>
+<tr><td>Ingredients Page</td><td>Deep-dive on each ingredient with research</td><td><span class="t">Essential</span></td></tr>
+<tr><td>Blog</td><td>SEO content. "What is the lymphatic system?" etc.</td><td><span class="t b">High</span></td></tr>
+<tr><td>FAQ</td><td>Objection handling. Shipping, returns, ingredients.</td><td><span class="t">Essential</span></td></tr>
+<tr><td>Contact / Support</td><td>Phone number, email, form. Builds trust.</td><td><span class="t">Essential</span></td></tr>
+<tr><td>Reviews Page</td><td>Dedicated page for all customer reviews</td><td><span class="t b">High</span></td></tr>
+<tr><td>Quiz ("What's Your Lymph Health?")</td><td>Lead capture + product recommendation</td><td><span class="t y">Phase 2</span></td></tr>
+</table>
+</div>
+
+<h3>Product Page Structure (Critical)</h3>
+<div class="c">
+<ol>
+<li><strong>Above the fold:</strong> Product image (white bottle, clean), product name, star rating, price selector (1/3/6 with 3 pre-selected), Add to Cart, trust badges row</li>
+<li><strong>Supplement Facts panel:</strong> Full ingredient breakdown with amounts. Seniors WILL read this.</li>
+<li><strong>How It Works:</strong> 3-step visual (Take daily → Support lymph flow → Feel the difference)</li>
+<li><strong>Ingredient deep-dives:</strong> Each ingredient with 2–3 sentence explanation + "research shows…" citation</li>
+<li><strong>Customer reviews:</strong> Filterable by concern (swelling, energy, immunity). Real names and ages.</li>
+<li><strong>FAQ accordion:</strong> 8–10 questions covering safety, interactions, dosage, returns, shipping</li>
+<li><strong>Guarantee badge:</strong> Large, visible "180-Day Money-Back Guarantee" with lock icon</li>
+<li><strong>Sticky Add to Cart:</strong> Follows scroll on mobile — always accessible</li>
+</ol>
+</div>
+
+<h3>Checkout Friction Reduction for Seniors</h3>
+<div class="c">
+<ul>
+<li><strong>Guest checkout enabled</strong> — never require account creation</li>
+<li><strong>Auto-fill address</strong> — reduces typing errors</li>
+<li><strong>Shopify Payments + PayPal</strong> — PayPal is trusted by 60+ (they've used it for years)</li>
+<li><strong>Clear order summary</strong> on checkout page — no hidden fees visible late</li>
+<li><strong>Phone support link</strong> on checkout page — "Need help? Call us at…"</li>
+<li><strong>Subscription opt-in clearly labeled</strong> — NEVER pre-checked. Transparent framing.</li>
+<li><strong>Progress indicator</strong> — "Step 1 of 3" reduces anxiety</li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════ 7. UX PSYCHOLOGY ═══════════ -->
+<section class="s" id="psych">
+<h2>7. Conversion Psychology for 60+</h2>
+
+<h3>How Seniors Read Pages Differently</h3>
+<div class="c">
+<ul>
+<li><strong>F-pattern scanning is less pronounced</strong> — seniors read more linearly and thoroughly than younger users. They'll actually read your product description if it's well-written.</li>
+<li><strong>Scroll depth is higher</strong> — they're willing to scroll long pages IF the content is engaging and readable. Don't truncate important information behind "read more" clicks.</li>
+<li><strong>They read headlines and subheads carefully</strong> — these function as a trust audit, not just navigation. Every heading should reinforce credibility.</li>
+<li><strong>Images are evaluated for authenticity</strong> — stock photos are instantly detected and destroy trust. Real product photos, real customer photos, real facility photos.</li>
+</ul>
+</div>
+
+<h3>Trust Barriers Specific to 60+</h3>
+<div class="g2">
+<div class="c">
+<div class="ct">Barrier: "Is this a scam?"</div>
+<p><strong>Solution:</strong> Physical address on every page footer. Real phone number. Named founders/team. BBB-style badges. SSL certificate visible. Clear return address.</p>
+</div>
+<div class="c">
+<div class="ct">Barrier: "Will this interact with my meds?"</div>
+<p><strong>Solution:</strong> FAQ answer: "Consult your healthcare provider before starting any supplement, especially if taking medications." Link to ingredient research. Never claim "no interactions."</p>
+</div>
+<div class="c">
+<div class="ct">Barrier: "Can I get my money back?"</div>
+<p><strong>Solution:</strong> Guarantee on product page, checkout page, AND in post-purchase email. Phone number for returns. Make the process obvious and easy.</p>
+</div>
+<div class="c">
+<div class="ct">Barrier: "Is this auto-ship I can't cancel?"</div>
+<p><strong>Solution:</strong> If offering subscriptions: "Cancel anytime — online or by phone. No penalties, no hassle." Show this text next to every subscription option.</p>
+</div>
+</div>
+
+<h3>Copywriting Adjustments</h3>
+<div class="c">
+<ul>
+<li><strong>Longer copy converts better</strong> — 60+ wants information, not brevity. Product descriptions should be 400–800 words minimum.</li>
+<li><strong>Use their language, not clinical jargon:</strong> "swollen legs" not "edema." "Feeling sluggish" not "fatigue." Mirror how they describe problems to their doctor.</li>
+<li><strong>Authority framing:</strong> "Recommended by healthcare professionals" > "Trending on TikTok." Credential-based trust > popularity-based trust.</li>
+<li><strong>Specificity builds trust:</strong> "Contains 500mg Echinacea root extract" > "Contains a powerful blend." Vague = suspicious for this demographic.</li>
+<li><strong>Qualify claims carefully:</strong> "In a published study, [ingredient] was shown to support…" > "[Product] cures…"</li>
+</ul>
+</div>
+
+<h3>UI/UX Differences vs. Younger Buyers</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Element</th><th>Younger Buyers</th><th>60+ Buyers</th></tr>
+<tr><td>Button size</td><td>Standard (36–40px)</td><td>Large (48px+ with clear labels)</td></tr>
+<tr><td>Pop-ups</td><td>Tolerated</td><td>Confusing and annoying — minimize</td></tr>
+<tr><td>Hamburger menus</td><td>Standard</td><td>Less intuitive — use visible nav</td></tr>
+<tr><td>Infinite scroll</td><td>Preferred</td><td>Overwhelming — use pagination</td></tr>
+<tr><td>Hover effects</td><td>Expected</td><td>Many use tablets — hover doesn't work</td></tr>
+<tr><td>Video autoplay</td><td>Engaging</td><td>Startling — always let them click play</td></tr>
+<tr><td>Form fields</td><td>Minimal</td><td>Still minimal but with larger inputs</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ═══════════ 8. RETENTION ═══════════ -->
+<section class="s" id="retention">
+<h2>8. Retention & LTV Strategy</h2>
+
+<h3>Email Flows (Klaviyo)</h3>
+<div class="c">
+<table class="tb">
+<tr><th>Flow</th><th>Timing</th><th>Purpose</th></tr>
+<tr><td>Welcome / Thank You</td><td>Immediately post-purchase</td><td>Confirm order, set expectations, include phone support number</td></tr>
+<tr><td>Shipping Confirmation</td><td>When shipped</td><td>Tracking info + "What to expect" guide</td></tr>
+<tr><td>Usage Guide</td><td>Day 3 (after delivery)</td><td>"How to get the most from your Lymph Flow Support" + dosage reminder</td></tr>
+<tr><td>Check-In</td><td>Day 14</td><td>"How are you feeling?" — shows you care. Soft pre-sell for next purchase.</td></tr>
+<tr><td>Review Request</td><td>Day 30</td><td>Ask for review with simple 1-click rating. Photo optional.</td></tr>
+<tr><td>Reorder Reminder</td><td>Day 25 (before running out)</td><td>"Your supply is running low" — direct reorder link with discount</td></tr>
+<tr><td>Subscription Offer</td><td>Day 35 (if no reorder)</td><td>"Save 15% every month — never run out"</td></tr>
+<tr><td>Win-Back</td><td>Day 60, 90</td><td>For lapsed customers. Educational content + special offer.</td></tr>
+</table>
+</div>
+
+<h3>Reorder Timing Logic</h3>
+<div class="c">
+<p>At 1 bottle = 30-day supply, the reorder window opens at <strong>Day 22–25</strong> (most people start thinking about reorder when ~5–8 days of supply remain). Send the first reorder nudge at Day 25, follow up at Day 28, final urgency at Day 32.</p>
+<p style="margin-top:8px">For 3-bottle orders, delay to Day 75–80. For 6-bottle, Day 160–165.</p>
+</div>
+
+<h3>Subscription Optimization</h3>
+<div class="c">
+<ul>
+<li><strong>Don't lead with subscription</strong> — let them buy once first. Offer subscription in the post-purchase flow after they've experienced the product.</li>
+<li><strong>Transparent cancellation:</strong> "Cancel anytime online or by phone" — display this everywhere.</li>
+<li><strong>"Pause" option:</strong> Instead of cancel, offer pause. Reduces churn by 20–30%.</li>
+<li><strong>Loyalty bonuses:</strong> After 3 months: free e-book. After 6 months: 5% extra discount. Reward consistency.</li>
+</ul>
+</div>
+
+<h3>Cross-Sell / Upsell Logic</h3>
+<div class="c">
+<p>Once the hero product is established, expand with complementary SKUs:</p>
+<ul>
+<li><strong>Phase 2 product:</strong> "SanaVieta Circulation Support" — targets the same demographic, different angle</li>
+<li><strong>Phase 3 product:</strong> "SanaVieta Joint Comfort" — natural next concern for 60+</li>
+<li><strong>Bundle cross-sell:</strong> "Complete Comfort Protocol" — Lymph + Circulation + Joint at 20% off</li>
+<li><strong>Post-purchase upsell:</strong> Show complementary product on thank-you page (one-click add)</li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════ 9. COMPLIANCE ═══════════ -->
+<section class="s" id="compliance">
+<h2>9. Risk & Compliance</h2>
+
+<h3>Supplement Compliance (FDA / FTC)</h3>
+<div class="hl danger">
+<p><strong>Non-negotiable:</strong> Dietary supplements in the US are regulated under DSHEA (Dietary Supplement Health and Education Act). You CAN make structure/function claims. You CANNOT make disease claims. The line between the two is where brands get in trouble.</p>
+</div>
+<div class="g2">
+<div class="c">
+<div class="ct" style="color:var(--green-dark)">✅ Compliant Claims</div>
+<ul>
+<li>"Supports healthy lymphatic function"</li>
+<li>"Promotes comfortable fluid balance"</li>
+<li>"Helps maintain healthy circulation"</li>
+<li>"Supports immune system health"</li>
+<li>"Promotes overall well-being"</li>
+</ul>
+<p style="margin-top:8px;font-size:12px;color:var(--text-dim)">Must include: "These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease."</p>
+</div>
+<div class="c">
+<div class="ct" style="color:var(--red)">❌ Non-Compliant Claims</div>
+<ul>
+<li>"Cures lymphedema"</li>
+<li>"Reduces swelling" (implies treating a condition)</li>
+<li>"Prevents blood clots"</li>
+<li>"Treats inflammation"</li>
+<li>"Eliminates fluid retention"</li>
+<li>Before/after claims with specific conditions</li>
+</ul>
+</div>
+</div>
+
+<h3>Co-Manufacturer Vetting (from your Blue Ocean PDF)</h3>
+<div class="c">
+<p><strong>Key questions from your compliance checklist to ask every manufacturer:</strong></p>
+<ul>
+<li>Do they have third-party dietary supplement GMP certification?</li>
+<li>Do they have their own in-house lab? What tests are included?</li>
+<li>Will they provide clinical studies to back up label claims?</li>
+<li>Who owns the formula — the co-man or you?</li>
+<li>Will they ensure full label compliance (all panels, not just Supp Facts)?</li>
+<li>Will they submit structure/function claims to FDA on your behalf?</li>
+<li>Is the supplier a broker or the actual manufacturer?</li>
+<li>What's the turn-around time from PO to shipment?</li>
+<li>Can they offer fulfillment services?</li>
+<li>Will they allow facility tours and third-party audits?</li>
+</ul>
+<p style="margin-top:8px;font-size:12px"><strong>Tip from Blue Ocean:</strong> Get quotes from at least 3 suppliers. Never fall in love with one co-man. Have backup suppliers ready.</p>
+</div>
+
+<h3>Ad Platform Risks</h3>
+<div class="c">
+<ul>
+<li><strong>Facebook:</strong> Health supplement ads face extra scrutiny. Avoid before/after imagery, personal attributes ("Are YOU suffering from…"), and disease references. Use educational framing.</li>
+<li><strong>Google:</strong> Supplement ads are allowed but restricted. No unapproved health claims. Google's LegitScript certification may be required for certain categories.</li>
+<li><strong>YouTube:</strong> Same restrictions as Google. Educational content about the lymphatic system (not your product specifically) performs well and faces less scrutiny.</li>
+</ul>
+</div>
+
+<h3>Refund Risk with 60+ Buyers</h3>
+<div class="c">
+<p>Seniors are <strong>more likely to use money-back guarantees</strong> than younger buyers. They also follow through on complaints more thoroughly (calling, writing, disputing charges). Budget accordingly:</p>
+<ul>
+<li><strong>Refund rate estimate:</strong> 7–12% (vs. 3–5% for younger demographics)</li>
+<li><strong>Chargeback estimate:</strong> 1–2% (seniors may dispute with bank before contacting you)</li>
+<li><strong>Mitigation:</strong> Proactive customer service, easy self-serve returns, clear cancellation process</li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════ 10. ROADMAP ═══════════ -->
+<section class="s" id="roadmap">
+<h2>10. Execution Roadmap</h2>
+
+<h3>Phased Rollout</h3>
+<div class="tl">
+<div class="ti">
+<div class="tl-l">Phase 1 — Store & Infrastructure (Weeks 1–3)</div>
+<p>Register LLC. File SanaVieta trademark. Set up Shopify store with Impulse theme. Configure Shopify Payments + PayPal. Install core apps (Seal Subscriptions, Judge.me, Klaviyo). Build homepage, About page, Contact page, legal pages (Privacy, Terms, Refund Policy). Set up Google Analytics 4 + Meta Pixel. Get virtual phone number for customer service.</p>
+</div>
+<div class="ti">
+<div class="tl-l">Phase 2 — Branding & Positioning (Weeks 2–4)</div>
+<p>Finalize brand guidelines (colors, fonts, logo usage). Design product label with FDA-compliant Supplement Facts panel. Create product photography (or use manufacturer-provided mockups initially). Write product page copy (400–800 words), ingredient descriptions, FAQ content. Design email templates in Klaviyo. Create social media profiles (FB, IG, YouTube).</p>
+</div>
+<div class="ti">
+<div class="tl-l">Phase 3 — Product Development & Sourcing (Weeks 1–6)</div>
+<p>Contact 3+ manufacturers (use Blue Ocean checklist). Request catalogs, quotes, and samples. Evaluate samples for quality. Negotiate MOQ and pricing. Place manufacturing order (1,500 units). Arrange third-party lab testing. Secure product liability insurance ($3,500). Set up fulfillment (self-ship initially or 3PL).</p>
+</div>
+<div class="ti">
+<div class="tl-l">Phase 4 — Marketing Launch (Weeks 7–10)</div>
+<p>Build email flows in Klaviyo (welcome, abandoned cart, post-purchase, reorder). Write 5–10 SEO blog posts targeting lymphatic health queries. Commission 3–5 UGC-style testimonial videos. Set up Facebook Ads account and initial campaign structure. Launch ads at $20–50/day. Begin YouTube content production. Soft launch to warm audience (friends, family, social following).</p>
+</div>
+<div class="ti">
+<div class="tl-l">Phase 5 — Optimization (Weeks 11–16+)</div>
+<p>Monitor metrics daily: ROAS, CPA, CVR, refund rate. A/B test product page (bundle selection, copy, images). Optimize ad creative weekly — kill underperformers, scale winners. Collect and display first reviews. Introduce subscription offer in post-purchase email flow. Begin planning Phase 2 product (Circulation Support). Scale ad spend based on profitable ROAS thresholds.</p>
+</div>
+</div>
+</section>
+
+<!-- ═══════════ 11. CHECKLIST ═══════════ -->
+<section class="s" id="checklist">
+<h2>11. Master Checklist</h2>
+<p>Click to check off items as you complete them. Organized by operational stage.</p>
+
+<h3>A. Store Build Stage — First Priority</h3>
+<ul class="cl">
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Register LLC (or your chosen entity structure)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> File SanaVieta trademark ($350)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Purchase domain name (sanavieta.com)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Set up Shopify account (Basic plan $39/mo)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Install & customize theme (Impulse or Dawn)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Configure white/green brand aesthetic per brand book</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Build homepage (hero, trust badges, product showcase)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Build product page (full copy, ingredients, FAQ, reviews)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Build About / Our Story page</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Build Contact page with phone number</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Create legal pages (Privacy Policy, Terms, Refund Policy)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Configure Shopify Payments + PayPal</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Set up shipping rates & zones</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Install Judge.me (reviews)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Install Seal Subscriptions (or ReCharge)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Install Google Analytics 4 + Meta Pixel</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Test full checkout flow end-to-end</li>
+</ul>
+
+<h3>B. Product Development Stage</h3>
+<ul class="cl">
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Research & shortlist 3+ co-manufacturers</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Send Blue Ocean vetting questions to each</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Request catalogs, quotes, and samples</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Evaluate samples for quality, taste, capsule size</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Negotiate MOQ & pricing (target 1,500 units)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Confirm formula ownership (YOU own it, not the co-man)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Design FDA-compliant product label</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Get FDA label review by regulatory consultant</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Place manufacturing order</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Arrange third-party lab testing (purity & potency)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Secure product liability insurance (~$3,500/yr)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Receive product & quality check shipment</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Set up fulfillment (self-ship or 3PL)</li>
+</ul>
+
+<h3>C. Branding Stage</h3>
+<ul class="cl">
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Finalize brand guidelines (colors, fonts, logo usage)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Product photography (or mockups from manufacturer)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Write product page copy (400–800 words)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Write ingredient deep-dive descriptions</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Write FAQ content (8–10 questions)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Write "Our Story" / About page content</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Create email templates in Klaviyo</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Design printed box insert card</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Create social media profiles (FB, IG, YouTube)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Create free e-book "Guide to Lymphatic Health" (PDF)</li>
+</ul>
+
+<h3>D. Marketing Launch Stage</h3>
+<ul class="cl">
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Set up Klaviyo email flows (welcome, cart, post-purchase, reorder)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Write 5–10 SEO blog posts on lymphatic health</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Commission 3–5 UGC testimonial videos</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Set up Facebook Ads account</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Create initial ad creatives (3–5 variations)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Launch ads at $20–50/day</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Set up Google Search Ads for "lymphatic support supplement"</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Soft launch to warm audience (friends, family)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Collect first 10–20 reviews</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Monitor daily: ROAS, CPA, CVR, refund rate</li>
+</ul>
+
+<h3>E. Scaling Stage</h3>
+<ul class="cl">
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> A/B test product page (bundles, copy, images)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Optimize ad creative weekly — kill losers, scale winners</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Introduce subscription offer in post-purchase flow</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Add quiz funnel (Octane AI or Prehook)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Scale ad spend as ROAS targets are met</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Begin YouTube educational content series</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Plan & source Phase 2 product (Circulation Support)</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Negotiate better manufacturer pricing at higher volume</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Evaluate 3PL if self-fulfillment bottlenecks</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Explore Amazon as secondary channel</li>
+<li><span class="cb" onclick="this.classList.toggle('x');this.textContent=this.classList.contains('x')?'✓':''"></span> Implement loyalty / referral program</li>
+</ul>
+</section>
+
+<footer>
+SanaVieta Master Launch Plan · Built for Alex · February 2026
+</footer>
+
+<script>
+const tabs=document.querySelectorAll('.nb'),secs=document.querySelectorAll('.s');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(b=>b.classList.remove('a'));
+  secs.forEach(s=>s.classList.remove('a'));
+  t.classList.add('a');
+  document.getElementById(t.dataset.t).classList.add('a');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
