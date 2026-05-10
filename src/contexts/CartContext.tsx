@@ -64,7 +64,7 @@ export default function CartProvider(props: CartContextProps){
     useEffect(() => {
         const cartId = localStorage.getItem('cartId');
         if (cartId) {
-            fetchCart(cartId).then(response => setCart(response.data.cart));
+            fetchCart(cartId).then(response =>{console.log(response.data); setCart(response.data.cart);});
         }
     }, []);
 
