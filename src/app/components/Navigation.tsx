@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import {Link, useNavigate} from 'react-router'
+import { Link, useNavigate } from 'react-router'
 type NavigationProps ={
     scrollToSection: (id: string) => void
     handleCheckout: () => void
@@ -8,6 +8,10 @@ type NavigationProps ={
 
 export default function Navigation({ scrollToSection, logoFull }: NavigationProps ){
     const navigate = useNavigate();
+    function navigateTo(path: string) {
+        navigate(path);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
     function handleNavClick(section: string){
         if(window.location.pathname === '/'){
             scrollToSection(section);
@@ -29,30 +33,30 @@ export default function Navigation({ scrollToSection, logoFull }: NavigationProp
                         <img src={logoFull} alt="SanaVieta" className="h-14 w-auto" />
                     </Link>
                     <div className="hidden md:flex items-center gap-8">
-                        <Link
-                            to="/"
+                        <button
+                            onClick={() => navigateTo('/')}
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                             Home
-                        </Link>
-                        <Link
-                            to="/product"
+                        </button>
+                        <button
+                            onClick={() => navigateTo('/product')}
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                             Products
-                        </Link>
-                        <Link
-                            to="/about"
+                        </button>
+                        <button
+                            onClick={() => navigateTo('/about')}
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                             About Us
-                        </Link>
-                        <Link
-                            to="/contact"
+                        </button>
+                        <button
+                            onClick={() => navigateTo('/contact')}
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                             Contact
-                        </Link>
+                        </button>
                     </div>
                     <Button
                         onClick={() => handleNavClick('products')}
