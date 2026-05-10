@@ -1,7 +1,7 @@
-import {Badge} from "./ui/badge";
+import {Badge} from "@/app/components/ui/badge";
 import {Check, ShieldCheck} from "lucide-react";
-import {Button} from "./ui/button";
-import {useProductContext} from "../../hooks/useProductContext";
+import {Button} from "@/app/components/ui/button";
+import {useProductContext} from "@/hooks/useProductContext";
 import {useCartContext} from "@/hooks/useCartContext";
 import {
     Select,
@@ -69,24 +69,28 @@ export default function FeaturedProduct() {
 
                         <div className="space-y-3">
                             <div className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0"/>
-                                <p className="text-[#3E5A3E]"><span
-                                    className="font-semibold">Micronized Diosmin 600mg</span> - Enhanced absorption</p>
+                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0" />
+                                <p className="text-[#3E5A3E]"><span className="font-semibold">Micronized Diosmin 600mg</span> - Enhanced absorption</p>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0"/>
-                                <p className="text-[#3E5A3E]"><span className="font-semibold">Enteric-Coated Bromelain 150mg</span> -
-                                    Stomach-friendly</p>
+                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0" />
+                                <p className="text-[#3E5A3E]"><span className="font-semibold">Enteric-Coated Bromelain 150mg</span> - Optimizes Bioavailability</p>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0"/>
-                                <p className="text-[#3E5A3E]"><span
-                                    className="font-semibold">Vascular Integrity Support</span> - Edema reduction</p>
+                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0" />
+                                <p className="text-[#3E5A3E]"><span className="font-semibold">Butcher's Broom and Horse Chestnut 200mg</span> - Vascular Integrity Support</p>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0"/>
-                                <p className="text-[#3E5A3E]"><span className="font-semibold">60 Capsules</span> -
-                                    30-day supply</p>
+                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0" />
+                                <p className="text-[#3E5A3E]"><span className="font-semibold">Gotu Kola 50mg</span> - Stimulates Collagen Production to Reinforce Vein Walls</p>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0" />
+                                <p className="text-[#3E5A3E]"><span className="font-semibold">Selenium 100mcg</span> - Antioxidant Support</p>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="w-5 h-5 text-[#4CAF50] mt-0.5 flex-shrink-0" />
+                                <p className="text-[#3E5A3E]"><span className="font-semibold">60 Capsules</span> - 30-day supply</p>
                             </div>
                         </div>
 
