@@ -1,8 +1,8 @@
-import logoFull from '../imports/Screen_Shot_2024-06-09_at_2.11.26_PM.png';
-import Navigation from "./components/Navigation";
+import logoFull from '@/imports/SanaV_Logo_-_BG_removed.png';
+import Navigation from "@/app/components/Navigation";
 import Footer from "@/app/components/Footer";
 import { Outlet } from "react-router";
-import { handleCheckout } from "../services/handleCheckout"
+import { handleCheckout } from "@/services/handleCheckout";
 export default function Layout(){
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);

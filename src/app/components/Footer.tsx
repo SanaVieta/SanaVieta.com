@@ -1,4 +1,4 @@
-import logoTextLight from "@/imports/Screen_Shot_2024-06-10_at_4.05.39_PM.png";
+import logoTextLight from "@/imports/SanaV_Logo_-_BG_removed-1.png";
 
 export default function Footer(){
     return (
