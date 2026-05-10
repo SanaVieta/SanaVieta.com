@@ -1,7 +1,7 @@
-import {Badge} from "./ui/badge";
+import {Badge} from "@/app/components/ui/badge";
 import {Check, ShieldCheck} from "lucide-react";
-import {Button} from "./ui/button";
-import {useProductContext} from "../../hooks/useProductContext";
+import {Button} from "@/app/components/ui/button";
+import {useProductContext} from "@/hooks/useProductContext";
 import {useCartContext} from "@/hooks/useCartContext";
 import {
     Select,
