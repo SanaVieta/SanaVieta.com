@@ -31,7 +31,6 @@ export default function Product() {
         window.open(STRIPE_CHECKOUT_URL, '_blank');
     };
 
-    // Update current slide when carousel changes
     useEffect(() => {
         if (!carouselApi) return;
 
@@ -73,7 +72,7 @@ export default function Product() {
             alt: 'Meet SanaLymph - Product Video',
         },
     ];
-
+    // mocked values
     const packages = [
         {
             id: '1-bottle',
@@ -197,7 +196,7 @@ export default function Product() {
 
     return (
         <div className="pb-16">
-            {/* Product Header */}
+            {/*//? do we really need this? */}
             <section className="bg-gradient-to-br from-[#E8F5E9] to-white py-8 md:py-12">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-2 text-sm text-[#6B7D6B] mb-4">
@@ -212,7 +211,7 @@ export default function Product() {
             <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
                     {/* Product Image Carousel */}
-                    <div className="sticky top-24 h-fit">
+                    <div className="lg:sticky lg:top-24 h-fit">
                         <div className="relative bg-white rounded-2xl p-8 shadow-lg">
                             <Badge className="absolute top-4 right-4 z-10 bg-[#FFF8E1] text-[#8D6E00] border-[#FFE082]">
                                 Best Seller
@@ -231,6 +230,7 @@ export default function Product() {
                                             ) : (
                                                 <div className="relative w-full rounded-lg overflow-hidden bg-black flex items-center justify-center h-[600px]">
                                                     <iframe
+                                                        title='Video Player'
                                                         src={media.src.replace('/view?usp=sharing', '/preview')}
                                                         className="w-full h-full"
                                                         allow="autoplay"
@@ -338,6 +338,7 @@ export default function Product() {
                                 >
                                     <CardContent className="p-4 text-center">
                                         <input
+                                            placeholder='onetime'
                                             type="radio"
                                             checked={purchaseType === 'onetime'}
                                             onChange={() => setPurchaseType('onetime')}
@@ -360,6 +361,7 @@ export default function Product() {
                                             Extra Savings
                                         </Badge>
                                         <input
+                                            title='subscribe-onetime-purchase'
                                             type="radio"
                                             checked={purchaseType === 'subscribe'}
                                             onChange={() => setPurchaseType('subscribe')}
@@ -395,6 +397,7 @@ export default function Product() {
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center gap-4 flex-1">
                                                         <input
+                                                            placeholder='something'
                                                             type="radio"
                                                             checked={selectedPackage === pkg.id}
                                                             onChange={() => setSelectedPackage(pkg.id)}
