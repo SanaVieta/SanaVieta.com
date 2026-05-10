@@ -41,6 +41,12 @@ export default function Navigation({ scrollToSection, logoFull }: NavigationProp
                             Products
                         </button>
                         <button
+                            onClick={() => navigate('/about')}
+                            className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
+                        >
+                           About Us
+                        </button>
+                        <button
                             onClick={() => handleNavClick('about')}
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
@@ -51,6 +57,13 @@ export default function Navigation({ scrollToSection, logoFull }: NavigationProp
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                            Contact
+                        </button>
+
+                        <button
+                            onClick={() => navigate('/contact')}
+                            className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
+                        >
+                            Contact
                         </button>
                     </div>
                     <Button
