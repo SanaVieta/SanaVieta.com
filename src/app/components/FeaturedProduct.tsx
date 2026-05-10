@@ -16,25 +16,26 @@ import {useState} from "react";
 
 export default function FeaturedProduct() {
     const product = useProductContext();
-    const {cart, redirectToCheckout, addToCart} = useCartContext();
-    const [productQuantity, setProductQuantity] = useState<number>(1)
-    const [isCalculating, setIsCalculating] = useState<boolean>(false);
     const fixedAmounts = [1, 3, 6, 12];
     const image = product?.data.products.edges[0].node.images.edges[0].node.url
     const productTitle = product?.data.products.edges[0].node.title;
     const unitPrice = Number(product?.data.products.edges[0].node.variants.edges[0].node.price.amount);
     const productId = product?.data.products.edges[0].node.variants.edges[0].node.id;
+    const { cart, redirectToCheckout, addToCart } = useCartContext();
+    const productQuantity = cart?.lines.edges[0]?.node.quantity ?? 1;
+    const [isCalculating, setIsCalculating] = useState<boolean>(false);
 
-    const displayPrice = cart
-        ? Number(cart.cost.totalAmount.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-        : (unitPrice * productQuantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const rawPrice = cart
+        ? Number(cart.cost.totalAmount.amount)
+        : (unitPrice || 0) * productQuantity;
+    const displayPrice = isNaN(rawPrice)
+        ? null
+        : rawPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     async function handleQuantityChange(value: string) {
         try {
             setIsCalculating(true);
-            const qty = Number(value);
-            setProductQuantity(qty);
-            if (productId) await addToCart(productId, qty);
+            if (productId) await addToCart(productId, Number(value));
         } finally {
             setIsCalculating(false);
         }
@@ -90,7 +91,7 @@ export default function FeaturedProduct() {
                         </div>
 
                         <div className="flex items-baseline gap-4">
-                            {isCalculating ?
+                            {isCalculating || displayPrice === null ?
                                 <span className="text-4xl font-bold text-[#1B5E20]">Calculating price...</span> :<>
                                 <span className="text-4xl font-bold text-[#1B5E20]">${displayPrice}</span>
                                 <span className="text-[#6B7D6B]">{productQuantity > 1 ? `${productQuantity} bottles` : 'per bottle'}</span>
@@ -98,7 +99,7 @@ export default function FeaturedProduct() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                            <Select onValueChange={handleQuantityChange}>
+                            <Select value={productQuantity.toString()} onValueChange={handleQuantityChange}>
                                 <SelectTrigger className="w-full max-w-48">
                                     <SelectValue placeholder="Select Quantity"/>
                                 </SelectTrigger>
