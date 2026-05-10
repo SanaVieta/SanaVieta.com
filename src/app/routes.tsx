@@ -3,6 +3,7 @@ import Layout from "@/app/Layout";
 import Contact from "@/app/Pages/Contact";
 import Home from "@/app/Pages/Home";
 import About from "@/app/Pages/About"
+import Product from "@/app/Pages/Product";
 
 export const router = createBrowserRouter([
         {
@@ -18,6 +19,9 @@ export const router = createBrowserRouter([
                 },
                 {
                     path: 'about', Component: About
+                },
+                {
+                    path: 'product', Component: Product
                 }
             ]
         }

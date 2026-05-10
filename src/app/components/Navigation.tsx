@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { useNavigate } from 'react-router'
+import {Link, useNavigate} from 'react-router'
 type NavigationProps ={
     scrollToSection: (id: string) => void
     handleCheckout: () => void
@@ -19,52 +19,40 @@ export default function Navigation({ scrollToSection, logoFull }: NavigationProp
             }, 100)
         }
     }
+
     return (
 
         <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#D7E5D7]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
-                    <div className="flex items-center">
+                    <Link to="/" className="flex items-center">
                         <img src={logoFull} alt="SanaVieta" className="h-14 w-auto" />
-                    </div>
+                    </Link>
                     <div className="hidden md:flex items-center gap-8">
-                        <button
-                            onClick={() => handleNavClick('benefits')}
+                        <Link
+                            to="/"
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
-                            Benefits
-                        </button>
-                        <button
-                            onClick={() => handleNavClick('products')}
+                            Home
+                        </Link>
+                        <Link
+                            to="/product"
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                             Products
-                        </button>
-                        <button
-                            onClick={() => navigate('/about')}
+                        </Link>
+                        <Link
+                            to="/about"
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
-                           About Us
-                        </button>
-                        <button
-                            onClick={() => handleNavClick('about')}
-                            className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
-                        >
-                            Our Story
-                        </button>
-                        <button
-                            onClick={() => navigate('/contact')}
-                            className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
-                        >
-                           Contact
-                        </button>
-
-                        <button
-                            onClick={() => navigate('/contact')}
+                            About Us
+                        </Link>
+                        <Link
+                            to="/contact"
                             className="text-[#3E5A3E] hover:text-[#2E7D32] transition-colors"
                         >
                             Contact
-                        </button>
+                        </Link>
                     </div>
                     <Button
                         onClick={() => handleNavClick('products')}
