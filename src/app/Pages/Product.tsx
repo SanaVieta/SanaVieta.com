@@ -2,15 +2,13 @@ import { ShieldCheck, Star, StarHalf, Check, Package, Truck, RefreshCw, ChevronD
 import { Button } from '@/app/components/ui/button';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { Badge } from '@/app/components/ui/badge';
-import { useState } from 'react';
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import productImage from '@/imports/Revitalize_your_flow_CTA.png';
 import circulationBanner from '@/imports/SanaVieta_Circulation_Banner.png';
 import trustedBanner from '@/imports/Trusted_by_1000s_updated.png';
 import infoBanner from '@/imports/SanaLymph_Info_Banner.png';
 import ingredientsShowcase from '@/imports/SanaLymph_Ingredients_Showcase.png';
 import ingredientsList from '@/imports/Ingredients_-1.png';
-import productVideo from '@/imports/Meet_SanaLymph.mp4';
 import margaretReview from '@/imports/Screenshot_2026-05-07_at_7.21.56_PM.png';
 import robertReview from '@/imports/Screenshot_2026-05-07_at_7.30.07_PM.png';
 import {
@@ -34,7 +32,7 @@ export default function Product() {
     };
 
     // Update current slide when carousel changes
-    React.useEffect(() => {
+    useEffect(() => {
         if (!carouselApi) return;
 
         carouselApi.on('select', () => {
@@ -71,7 +69,7 @@ export default function Product() {
         },
         {
             type: 'video' as const,
-            src: productVideo,
+            src: 'https://drive.google.com/file/d/1ix9KpMxrsuGk0ZjPaouCfddXQZS3WLK8/view?usp=sharing',
             alt: 'Meet SanaLymph - Product Video',
         },
     ];
@@ -232,13 +230,12 @@ export default function Product() {
                                                 />
                                             ) : (
                                                 <div className="relative w-full rounded-lg overflow-hidden bg-black flex items-center justify-center h-[600px]">
-                                                    <video
-                                                        src={media.src}
-                                                        controls
-                                                        className="w-full h-full object-contain"
-                                                    >
-                                                        Your browser does not support the video tag.
-                                                    </video>
+                                                    <iframe
+                                                        src={media.src.replace('/view?usp=sharing', '/preview')}
+                                                        className="w-full h-full"
+                                                        allow="autoplay"
+                                                        allowFullScreen
+                                                    />
                                                 </div>
                                             )}
                                         </CarouselItem>
