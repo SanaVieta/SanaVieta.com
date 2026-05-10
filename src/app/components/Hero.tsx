@@ -1,7 +1,7 @@
 import {Badge} from "@/app/components/ui/badge";
 import {Button} from "@/app/components/ui/button";
 import {ShieldCheck} from "lucide-react";
-import heroImage from "@/imports/WhatsApp_Image_2026-04-21_at_13.38.31.jpeg";
+import heroImage from "@/imports/SanaLymph_Ingredients_Showcase-1.png";
 
 export default function Hero(){
     function scrollToSection(id: string){
