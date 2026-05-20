@@ -53,6 +53,14 @@ export type CartUpdateResponse = {
     };
 };
 
+export type CartLinesAddResponse = {
+    data: {
+        cartLinesAdd: {
+            cart: Cart;
+        };
+    };
+};
+
 export type CartRemoveResponse = {
     data: {
         cartLinesRemove: {
@@ -66,5 +74,5 @@ export type CartContextType = {
     addToCart: (merchandiseId: string, quantity: number) => Promise<void>;
     removeFromCart: (merchandiseId: string, quantity: number) => void;
     buyNow: (merchandiseId: string, quantity: number) => void;
-    redirectToCheckout: (link: string) => void;
+    redirectToCheckout: () => void;
 };

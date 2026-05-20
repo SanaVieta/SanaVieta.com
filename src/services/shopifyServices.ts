@@ -1,5 +1,5 @@
 import type { ProductsResponse } from "src/types/product";
-import type { CartCreateResponse, CartFetchResponse, CartUpdateResponse, CartRemoveResponse } from "src/types/cart";
+import type { CartCreateResponse, CartFetchResponse, CartUpdateResponse, CartLinesAddResponse, CartRemoveResponse } from "src/types/cart";
 
 const STORE_ENDPOINT: string = import.meta.env.VITE_STORE_URL;
 const ACCESS_TOKEN: string = import.meta.env.VITE_ACCESS_TOKEN
@@ -152,6 +152,19 @@ mutation {
 }
 `
 
+const addCartLineQuery = (cartId: string, merchandiseId: string, quantity: number) => `
+mutation {
+  cartLinesAdd(
+    cartId: "${cartId}"
+    lines: [{ merchandiseId: "${merchandiseId}", quantity: ${quantity} }]
+  ) {
+    cart {
+      ${cartLinesFragment}
+    }
+  }
+}
+`
+
 
 const sanaLymphProductQuery = `
           {
@@ -226,4 +239,8 @@ export async function updateCart(cartId: string, merchandiseId: string, quantity
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<CartRemoveResponse> {
     return shopifyFetch(removeCartLinesQuery(cartId, lineIds));
+}
+
+export async function addLineToCart(cartId: string, merchandiseId: string, quantity: number): Promise<CartLinesAddResponse> {
+    return shopifyFetch(addCartLineQuery(cartId, merchandiseId, quantity));
 }
