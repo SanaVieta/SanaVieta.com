@@ -2,7 +2,7 @@ import { ShieldCheck, Star, StarHalf, Check, Package, Truck, RefreshCw, ChevronD
 import { Button } from '@/app/components/ui/button';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { Badge } from '@/app/components/ui/badge';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import productImage from '@/imports/Revitalize_your_flow_CTA.png';
 import circulationBanner from '@/imports/SanaVieta_Circulation_Banner.png';
 import trustedBanner from '@/imports/Trusted_by_1000s_updated.png';
@@ -18,28 +18,32 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/app/components/ui/carousel';
+import { useCartContext } from '@/hooks/useCartContext';
+import { useProductContext } from '@/hooks/useProductContext';
+import type { ProductPackage } from '@/types/ProductPackage';
+
+const PACKAGE_TIERS = [
+    { id: '1-bottle' as const,  name: 'Starter',        bottles: 1,  savings: 0,  subscribeSavings: 15, badge: 'Trial Size',       frequency: 'every 30 days'    },
+    { id: '3-bottle' as const,  name: 'Most Popular',   bottles: 3,  savings: 15, subscribeSavings: 23, badge: 'Best Value',        frequency: 'every 3 months',  popular: true  },
+    { id: '6-bottle' as const,  name: 'Best Deal',      bottles: 6,  savings: 25, subscribeSavings: 32, badge: 'Maximum Savings',   frequency: 'every 6 months'   },
+    { id: '12-bottle' as const, name: 'Ultimate Value', bottles: 12, savings: 33, subscribeSavings: 41, badge: 'Best Price',        frequency: 'every 12 months', ultimate: true },
+] as const;
+
+function buildPackages(unitPrice: number): ProductPackage[] {
+    return PACKAGE_TIERS.map(tier => {
+        const pricePerBottle         = Math.round(unitPrice * (1 - tier.savings         / 100) * 100) / 100;
+        const subscribePricePerBottle = Math.round(unitPrice * (1 - tier.subscribeSavings / 100) * 100) / 100;
+        return {
+            ...tier,
+            price:                  Math.round(pricePerBottle          * tier.bottles * 100) / 100,
+            subscribePrice:         Math.round(subscribePricePerBottle * tier.bottles * 100) / 100,
+            pricePerBottle,
+            subscribePricePerBottle,
+        };
+    });
+}
 
 export default function Product() {
-    const STRIPE_CHECKOUT_URL = 'https://buy.stripe.com/test_00w5kE14vdOI8wU4Sbak000';
-    const [selectedPackage, setSelectedPackage] = useState('3-bottle');
-    const [purchaseType, setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
-    const [carouselApi, setCarouselApi] = useState<any>(null);
-    const [currentSlide, setCurrentSlide] = useState(0);
-
-    const handleCheckout = () => {
-        window.open(STRIPE_CHECKOUT_URL, '_blank');
-    };
-
-    useEffect(() => {
-        if (!carouselApi) return;
-
-        carouselApi.on('select', () => {
-            setCurrentSlide(carouselApi.selectedScrollSnap());
-        });
-    }, [carouselApi]);
-
-    // Product media - can add more images or video URLs here
     const productMedia = [
         {
             type: 'image' as const,
@@ -72,64 +76,6 @@ export default function Product() {
             alt: 'Meet SanaLymph - Product Video',
         },
     ];
-    // mocked values
-    const packages = [
-        {
-            id: '1-bottle',
-            name: 'Starter',
-            bottles: 1,
-            price: 69,
-            subscribePrice: 59,
-            pricePerBottle: 69,
-            subscribePricePerBottle: 59,
-            savings: 0,
-            subscribeSavings: 15,
-            badge: 'Trial Size',
-            frequency: 'every 30 days',
-        },
-        {
-            id: '3-bottle',
-            name: 'Most Popular',
-            bottles: 3,
-            price: 176.25,
-            subscribePrice: 159,
-            pricePerBottle: 58.75,
-            subscribePricePerBottle: 53,
-            savings: 15,
-            subscribeSavings: 23,
-            badge: 'Best Value',
-            popular: true,
-            frequency: 'every 3 months',
-        },
-        {
-            id: '6-bottle',
-            name: 'Best Deal',
-            bottles: 6,
-            price: 310.50,
-            subscribePrice: 282,
-            pricePerBottle: 51.75,
-            subscribePricePerBottle: 47,
-            savings: 25,
-            subscribeSavings: 32,
-            badge: 'Maximum Savings',
-            frequency: 'every 6 months',
-        },
-        {
-            id: '12-bottle',
-            name: 'Ultimate Value',
-            bottles: 12,
-            price: 552,
-            subscribePrice: 492,
-            pricePerBottle: 46,
-            subscribePricePerBottle: 41,
-            savings: 33,
-            subscribeSavings: 41,
-            badge: 'Best Price',
-            ultimate: true,
-            frequency: 'every 12 months',
-        },
-    ];
-
     const benefits = [
         'Supports healthy lymphatic function',
         'Promotes comfortable fluid balance',
@@ -172,10 +118,10 @@ export default function Product() {
             question: 'How long does it take to see results?',
             answer: 'Individual results may vary. Most users report noticing improvements in comfort and fluid balance within 2-4 weeks of consistent use. For optimal results, we recommend taking SanaLymph daily for at least 90 days.',
         },
-        {
-            question: 'How does the Subscribe & Save option work?',
-            answer: 'With Subscribe & Save, you receive automatic deliveries based on your package size (1 bottle every 30 days, 3 bottles every 3 months, 6 bottles every 6 months, or 12 bottles every year) at a discounted price (save up to 41%). You can cancel, pause, or modify your subscription anytime - no commitments or penalties. Plus, you get free shipping on all subscription orders.',
-        },
+        // {
+        //     question: 'How does the Subscribe & Save option work?',
+        //     answer: 'With Subscribe & Save, you receive automatic deliveries based on your package size (1 bottle every 30 days, 3 bottles every 3 months, 6 bottles every 6 months, or 12 bottles every year) at a discounted price (save up to 41%). You can cancel, pause, or modify your subscription anytime - no commitments or penalties. Plus, you get free shipping on all subscription orders.',
+        // },
         {
             question: 'Are there any side effects?',
             answer: 'SanaLymph is formulated with natural ingredients and is generally well-tolerated. However, as with any supplement, some individuals may experience mild digestive changes. If you have any concerns or are taking medications, please consult your healthcare provider before use.',
@@ -193,10 +139,46 @@ export default function Product() {
             answer: 'We offer a 180-day money-back guarantee. If you\'re not completely satisfied with your results, simply contact our customer service team for a full refund - no questions asked.',
         },
     ];
+    const [selectedPackage, setSelectedPackage] = useState<ProductPackage['id']>('3-bottle');
+    const [purchaseType, setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [carouselApi, setCarouselApi] = useState<any>(null);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const initializedFromCart = useRef(false);
+    const product = useProductContext();
+    const { cart, redirectToCheckout, addToCart } = useCartContext();
+    const unitPrice = Number(product?.data.products.edges[0].node.variants.edges[0].node.price.amount);
+    const productId = product?.data.products.edges[0].node.variants.edges[0].node.id;
+    const packages = useMemo(() => buildPackages(unitPrice || 0), [unitPrice]);
+
+    useEffect(() => {
+        if (!carouselApi) return;
+
+        carouselApi.on('select', () => {
+            setCurrentSlide(carouselApi.selectedScrollSnap());
+        });
+    }, [carouselApi]);
+
+    useEffect(() => {
+        if (cart && !initializedFromCart.current) {
+            const pkg = packages.find(pkg => pkg.bottles === cart.totalQuantity);
+            if (pkg) setSelectedPackage(pkg.id);
+            initializedFromCart.current = true;
+        }
+    }, [cart, packages]);
+
+    async function handleAddToCart(pkgId: ProductPackage['id']){
+        const pkg: ProductPackage | undefined= packages.find(pkg => pkg.id === pkgId);
+        if(pkg && productId){
+            const quantity = pkg.bottles;
+            setSelectedPackage(pkgId)
+            await addToCart(productId, quantity); 
+        }
+        return;
+    }
 
     return (
         <div className="pb-16">
-            {/*//? do we really need this? */}
             <section className="bg-gradient-to-br from-[#E8F5E9] to-white py-8 md:py-12">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-2 text-sm text-[#6B7D6B] mb-4">
@@ -324,55 +306,55 @@ export default function Product() {
                             </div>
                         </div>
 
-                        {/* Purchase Type Selection */}
-                        <div>
-                            <h3 className="font-semibold text-[#1B5E20] mb-4">Purchase Type:</h3>
-                            <div className="grid grid-cols-2 gap-3 mb-6">
-                                <Card
-                                    className={`cursor-pointer transition-all ${
-                                        purchaseType === 'onetime'
-                                            ? 'border-[#4CAF50] border-2 shadow-md'
-                                            : 'border-[#D7E5D7] hover:border-[#4CAF50]'
-                                    }`}
-                                    onClick={() => setPurchaseType('onetime')}
-                                >
-                                    <CardContent className="p-4 text-center">
-                                        <input
-                                            placeholder='onetime'
-                                            type="radio"
-                                            checked={purchaseType === 'onetime'}
-                                            onChange={() => setPurchaseType('onetime')}
-                                            className="mb-2"
-                                        />
-                                        <h4 className="font-semibold text-[#1B5E20]">One-Time Purchase</h4>
-                                        <p className="text-xs text-[#6B7D6B] mt-1">Pay once, no commitment</p>
-                                    </CardContent>
-                                </Card>
-                                <Card
-                                    className={`cursor-pointer transition-all ${
-                                        purchaseType === 'subscribe'
-                                            ? 'border-[#4CAF50] border-2 shadow-md'
-                                            : 'border-[#D7E5D7] hover:border-[#4CAF50]'
-                                    }`}
-                                    onClick={() => setPurchaseType('subscribe')}
-                                >
-                                    <CardContent className="p-4 text-center relative">
-                                        <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#4CAF50] text-white text-xs">
-                                            Extra Savings
-                                        </Badge>
-                                        <input
-                                            title='subscribe-onetime-purchase'
-                                            type="radio"
-                                            checked={purchaseType === 'subscribe'}
-                                            onChange={() => setPurchaseType('subscribe')}
-                                            className="mb-2"
-                                        />
-                                        <h4 className="font-semibold text-[#1B5E20]">Subscribe & Save</h4>
-                                        <p className="text-xs text-[#6B7D6B] mt-1">Save up to 41%</p>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </div>
+                        {/* Purchase Type Selection
+                        // <div>
+                        //     <h3 className="font-semibold text-[#1B5E20] mb-4">Purchase Type:</h3>
+                        //     <div className="grid grid-cols-2 gap-3 mb-6">
+                        //         <Card
+                        //             className={`cursor-pointer transition-all ${
+                        //                 purchaseType === 'onetime'
+                        //                     ? 'border-[#4CAF50] border-2 shadow-md'
+                        //                     : 'border-[#D7E5D7] hover:border-[#4CAF50]'
+                        //             }`}
+                        //             onClick={() => setPurchaseType('onetime')}
+                        //         >
+                        //             <CardContent className="p-4 text-center">
+                        //                 <input
+                        //                     placeholder='onetime'
+                        //                     type="radio"
+                        //                     checked={purchaseType === 'onetime'}
+                        //                     onChange={() => setPurchaseType('onetime')}
+                        //                     className="mb-2"
+                        //                 />
+                        //                 <h4 className="font-semibold text-[#1B5E20]">One-Time Purchase</h4>
+                        //                 <p className="text-xs text-[#6B7D6B] mt-1">Pay once, no commitment</p>
+                        //             </CardContent>
+                        //         </Card>
+                        //         <Card
+                        //             className={`cursor-pointer transition-all ${
+                        //                 purchaseType === 'subscribe'
+                        //                     ? 'border-[#4CAF50] border-2 shadow-md'
+                        //                     : 'border-[#D7E5D7] hover:border-[#4CAF50]'
+                        //             }`}
+                        //             onClick={() => setPurchaseType('subscribe')}
+                        //         >
+                        //             <CardContent className="p-4 text-center relative">
+                        //                 <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#4CAF50] text-white text-xs">
+                        //                     Extra Savings
+                        //                 </Badge>
+                        //                 <input
+                        //                     title='subscribe-onetime-purchase'
+                        //                     type="radio"
+                        //                     checked={purchaseType === 'subscribe'}
+                        //                     onChange={() => setPurchaseType('subscribe')}
+                        //                     className="mb-2"
+                        //                 />
+                        //                 <h4 className="font-semibold text-[#1B5E20]">Subscribe & Save</h4>
+                        //                 <p className="text-xs text-[#6B7D6B] mt-1">Save up to 41%</p>
+                        //             </CardContent>
+                        //         </Card>
+                        //     </div>
+                        // </div> */}
 
                         {/* Package Selection */}
                         <div>
@@ -386,21 +368,21 @@ export default function Product() {
                                     return (
                                         <Card
                                             key={pkg.id}
+                                            onClick={() => handleAddToCart(pkg.id)}
                                             className={`cursor-pointer transition-all ${
                                                 selectedPackage === pkg.id
                                                     ? 'border-[#4CAF50] border-2 shadow-md'
                                                     : 'border-[#D7E5D7] hover:border-[#4CAF50]'
                                             } ${pkg.popular || pkg.ultimate ? 'ring-2 ring-[#4CAF50] ring-opacity-50' : ''}`}
-                                            onClick={() => setSelectedPackage(pkg.id)}
                                         >
                                             <CardContent className="p-4">
                                                 <div className="flex items-center justify-between">
                                                     <div className="flex items-center gap-4 flex-1">
                                                         <input
-                                                            placeholder='something'
+                                                            onChange={(() => handleAddToCart(pkg.id))}
+                                                            placeholder='select package'
                                                             type="radio"
                                                             checked={selectedPackage === pkg.id}
-                                                            onChange={() => setSelectedPackage(pkg.id)}
                                                             className="w-5 h-5 text-[#4CAF50]"
                                                         />
                                                         <div>
@@ -449,10 +431,10 @@ export default function Product() {
                         <div className="space-y-4">
                             <Button
                                 size="lg"
-                                onClick={handleCheckout}
+                                onClick={redirectToCheckout}
                                 className="w-full bg-[#4CAF50] hover:bg-[#2E7D32] text-white h-14 text-lg"
                             >
-                                {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Add to Cart'} - $
+                                {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
                                 {purchaseType === 'subscribe'
                                     ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
                                     : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
@@ -737,7 +719,7 @@ export default function Product() {
                     </p>
                     <Button
                         size="lg"
-                        onClick={handleCheckout}
+                        onClick={() => console.log('something')}
                         className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white px-12 h-14 text-lg"
                     >
                         Order Now

@@ -1,6 +1,6 @@
 import type { Cart, CartContextType } from "@/types/cart";
 import {createContext, type JSX, useEffect, useState} from "react";
-import {createCart, fetchCart, updateCart, removeFromCart as deleteFromCart } from "@/services/shopifyServices";
+import {createCart, fetchCart, addLineToCart, removeFromCart as deleteFromCart } from "@/services/shopifyServices";
 
 
 const defaultCartContext: CartContextType = {
@@ -8,7 +8,7 @@ const defaultCartContext: CartContextType = {
     addToCart: (_merchandiseId: string, _quantity: number) => Promise.resolve(),
     removeFromCart: (_merchandiseId: string, _quantity: number) => {},
     buyNow: (_merchandiseId: string, _quantity: number) => {},
-    redirectToCheckout: (link: string) => {}
+    redirectToCheckout: () => {}
 };
 
 export const CartContext = createContext<CartContextType>(defaultCartContext);
@@ -29,18 +29,21 @@ export default function CartProvider(props: CartContextProps){
             setCart(newCart);
             return;
         }
-        const existingLine = cart?.lines.edges.find(
-            e => e.node.merchandise.id === merchandiseId
-        );
-        if (existingLine) {
-            const response = await updateCart(cartId, existingLine.node.id, quantity);
-            setCart(response.data.cartLinesUpdate.cart);
-        } else {
+        const freshCartResponse = await fetchCart(cartId);
+        const freshCart = freshCartResponse.data.cart;
+        if (!freshCart) {
             const response = await createCart(merchandiseId, quantity);
             const newCart = response.data.cartCreate.cart;
             localStorage.setItem('cartId', newCart.id);
             setCart(newCart);
+            return;
         }
+        const existingLineIds = freshCart.lines.edges.map(e => e.node.id);
+        if (existingLineIds.length > 0) {
+            await deleteFromCart(cartId, existingLineIds);
+        }
+        const response = await addLineToCart(cartId, merchandiseId, quantity);
+        setCart(response.data.cartLinesAdd.cart);
     }
 
     async function removeFromCart(merchandiseId: string){
@@ -57,14 +60,18 @@ export default function CartProvider(props: CartContextProps){
     }
 
 
-    function redirectToCheckout(link: string){
-        window.location.href = link;
+    function redirectToCheckout(){
+        const checkoutLink = cart?.checkoutUrl;
+        if(checkoutLink){
+            window.location.href = checkoutLink;
+
+        }
     }
 
     useEffect(() => {
         const cartId = localStorage.getItem('cartId');
         if (cartId) {
-            fetchCart(cartId).then(response =>{console.log(response.data); setCart(response.data.cart);});
+            fetchCart(cartId).then(response =>setCart(response.data.cart));
         }
     }, []);
 
