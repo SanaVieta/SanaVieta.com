@@ -2,7 +2,7 @@ import { ShieldCheck, Star, StarHalf, Check, Package, Truck, RefreshCw, ChevronD
 import { Button } from '@/app/components/ui/button';
 import { Card, CardContent } from '@/app/components/ui/card';
 import { Badge } from '@/app/components/ui/badge';
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import productImage from '@/imports/Revitalize_your_flow_CTA.png';
 import circulationBanner from '@/imports/SanaVieta_Circulation_Banner.png';
 import trustedBanner from '@/imports/Trusted_by_1000s_updated.png';
@@ -21,27 +21,7 @@ import {
 import { useCartContext } from '@/hooks/useCartContext';
 import { useProductContext } from '@/hooks/useProductContext';
 import type { ProductPackage } from '@/types/ProductPackage';
-
-const PACKAGE_TIERS = [
-    { id: '1-bottle' as const,  name: 'Starter',        bottles: 1,  savings: 0,  subscribeSavings: 15, badge: 'Trial Size',       frequency: 'every 30 days'    },
-    { id: '3-bottle' as const,  name: 'Most Popular',   bottles: 3,  savings: 15, subscribeSavings: 23, badge: 'Best Value',        frequency: 'every 3 months',  popular: true  },
-    { id: '6-bottle' as const,  name: 'Best Deal',      bottles: 6,  savings: 25, subscribeSavings: 32, badge: 'Maximum Savings',   frequency: 'every 6 months'   },
-    { id: '12-bottle' as const, name: 'Ultimate Value', bottles: 12, savings: 33, subscribeSavings: 41, badge: 'Best Price',        frequency: 'every 12 months', ultimate: true },
-] as const;
-
-function buildPackages(unitPrice: number): ProductPackage[] {
-    return PACKAGE_TIERS.map(tier => {
-        const pricePerBottle         = Math.round(unitPrice * (1 - tier.savings         / 100) * 100) / 100;
-        const subscribePricePerBottle = Math.round(unitPrice * (1 - tier.subscribeSavings / 100) * 100) / 100;
-        return {
-            ...tier,
-            price:                  Math.round(pricePerBottle          * tier.bottles * 100) / 100,
-            subscribePrice:         Math.round(subscribePricePerBottle * tier.bottles * 100) / 100,
-            pricePerBottle,
-            subscribePricePerBottle,
-        };
-    });
-}
+import Spinner from '../components/Spinner';
 
 export default function Product() {
     const productMedia = [
@@ -139,18 +119,16 @@ export default function Product() {
             answer: 'We offer a 180-day money-back guarantee. If you\'re not completely satisfied with your results, simply contact our customer service team for a full refund - no questions asked.',
         },
     ];
+
     const [selectedPackage, setSelectedPackage] = useState<ProductPackage['id']>('3-bottle');
-    const [purchaseType, setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
+    const [purchaseType, _setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [carouselApi, setCarouselApi] = useState<any>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const initializedFromCart = useRef(false);
-    const product = useProductContext();
+    const { packages, productId } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
-    const unitPrice = Number(product?.data.products.edges[0].node.variants.edges[0].node.price.amount);
-    const productId = product?.data.products.edges[0].node.variants.edges[0].node.id;
-    const packages = useMemo(() => buildPackages(unitPrice || 0), [unitPrice]);
-
+    const [redirecting, setRedirecting] = useState<boolean>(false)
     useEffect(() => {
         if (!carouselApi) return;
 
@@ -431,13 +409,27 @@ export default function Product() {
                         <div className="space-y-4">
                             <Button
                                 size="lg"
-                                onClick={redirectToCheckout}
+                                onClick={() => {
+                                    setRedirecting(true) 
+                                    redirectToCheckout()
+                                }}
                                 className="w-full bg-[#4CAF50] hover:bg-[#2E7D32] text-white h-14 text-lg"
                             >
-                                {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
-                                {purchaseType === 'subscribe'
-                                    ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
-                                    : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
+                                <div className='flex items-center gap-2'>
+                                    {redirecting ? (
+                                        <>
+                                            <Spinner theme='light' />
+                                            Proceeding to Checkout...
+                                        </>
+                                    ) : (
+                                        <>
+                                            {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
+                                            {purchaseType === 'subscribe'
+                                                ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
+                                                : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
+                                        </>
+                                    )}
+                                </div>
                             </Button>
                             {purchaseType === 'subscribe' && (
                                 <p className="text-xs text-center text-[#6B7D6B]">

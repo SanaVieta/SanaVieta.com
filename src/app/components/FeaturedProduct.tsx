@@ -1,5 +1,5 @@
 import {Badge} from "@/app/components/ui/badge";
-import {Check, ShieldCheck} from "lucide-react";
+import {Check, ShieldCheck, Truck} from "lucide-react";
 import {Button} from "@/app/components/ui/button";
 import {useProductContext} from "@/hooks/useProductContext";
 import {useCartContext} from "@/hooks/useCartContext";
@@ -13,14 +13,11 @@ import {
     SelectValue,
 } from "@/app/components/ui/select";
 import {useState} from "react";
+import Spinner from "./Spinner";
 
 export default function FeaturedProduct() {
-    const product = useProductContext();
-    const fixedAmounts = [1, 3, 6, 12];
-    const image = product?.data.products.edges[0].node.images.edges[0].node.url
-    const productTitle = product?.data.products.edges[0].node.title;
-    const unitPrice = Number(product?.data.products.edges[0].node.variants.edges[0].node.price.amount);
-    const productId = product?.data.products.edges[0].node.variants.edges[0].node.id;
+    const [redirecting, setRedirecting] = useState<boolean>(false);
+    const { image, productTitle, unitPrice, productId, packages } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
     const productQuantity = cart?.lines.edges[0]?.node.quantity ?? 1;
     const [isCalculating, setIsCalculating] = useState<boolean>(false);
@@ -47,7 +44,7 @@ export default function FeaturedProduct() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="order-2 lg:order-1">
                         <img
-                            src={image}
+                            src={image ?? undefined}
                             alt="SanaLymph - Lymphatic System & Vascular Support"
                             className="rounded-2xl shadow-2xl w-full"
                         />
@@ -96,7 +93,10 @@ export default function FeaturedProduct() {
 
                         <div className="flex items-baseline gap-4">
                             {isCalculating || displayPrice === null ?
-                                <span className="text-4xl font-bold text-[#1B5E20]">Calculating price...</span> :<>
+                                <>
+                                    <span className="text-4xl font-bold text-[#1B5E20]">Calculating price</span>
+                                    <Spinner theme="dark"/>
+                                </> :<>
                                 <span className="text-4xl font-bold text-[#1B5E20]">${displayPrice}</span>
                                 <span className="text-[#6B7D6B]">{productQuantity > 1 ? `${productQuantity} bottles` : 'per bottle'}</span>
                             </>}
@@ -110,20 +110,29 @@ export default function FeaturedProduct() {
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Quantity</SelectLabel>
-                                        {fixedAmounts.map((amount, i) => <SelectItem key={i} value={amount.toString()}>{amount}</SelectItem>)}
+                                        {packages.map((pkg, i) => <SelectItem key={i} value={pkg.bottles.toString()}>{pkg.bottles}</SelectItem>)}
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
                             <Button
                                 size="lg"
                                 disabled={!cart?.checkoutUrl}
-                                onClick={() => redirectToCheckout(cart!.checkoutUrl)}
+                                onClick={() => {
+                                    setRedirecting(true) 
+                                    redirectToCheckout()
+                                }}
                                 className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white w-full sm:w-auto px-8 h-12"
                             >
-                                Buy Now
+                                <div className="flex items-center gap-2 ">
+                                    {redirecting &&<Spinner theme="light" />}
+                                    <span>Buy Now</span>
+                                </div>
                             </Button>
                         </div>
-
+                        <div className="flex items-center gap-2 text-sm text[#3E5A3E] pt-4">
+                            <Truck className="w-5 h-5 text-[#4CAF50]" />
+                            <span className="text-[#6B7D6B]">Free Shipping</span>
+                        </div>
                         <div className="flex items-center gap-2 text-sm text-[#3E5A3E] pt-4">
                             <ShieldCheck className="w-5 h-5 text-[#4CAF50]"/>
                             <span>180-Day Money-Back Guarantee</span>
