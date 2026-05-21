@@ -15,12 +15,7 @@ import {
 import {useState} from "react";
 
 export default function FeaturedProduct() {
-    const product = useProductContext();
-    const fixedAmounts = [1, 3, 6, 12];
-    const image = product?.data.products.edges[0].node.images.edges[0].node.url
-    const productTitle = product?.data.products.edges[0].node.title;
-    const unitPrice = Number(product?.data.products.edges[0].node.variants.edges[0].node.price.amount);
-    const productId = product?.data.products.edges[0].node.variants.edges[0].node.id;
+    const { image, productTitle, unitPrice, productId, packages } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
     const productQuantity = cart?.lines.edges[0]?.node.quantity ?? 1;
     const [isCalculating, setIsCalculating] = useState<boolean>(false);
@@ -47,7 +42,7 @@ export default function FeaturedProduct() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="order-2 lg:order-1">
                         <img
-                            src={image}
+                            src={image ?? undefined}
                             alt="SanaLymph - Lymphatic System & Vascular Support"
                             className="rounded-2xl shadow-2xl w-full"
                         />
@@ -110,14 +105,14 @@ export default function FeaturedProduct() {
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Quantity</SelectLabel>
-                                        {fixedAmounts.map((amount, i) => <SelectItem key={i} value={amount.toString()}>{amount}</SelectItem>)}
+                                        {packages.map((pkg, i) => <SelectItem key={i} value={pkg.bottles.toString()}>{pkg.bottles}</SelectItem>)}
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
                             <Button
                                 size="lg"
                                 disabled={!cart?.checkoutUrl}
-                                onClick={() => redirectToCheckout(cart!.checkoutUrl)}
+                                onClick={() => redirectToCheckout()}
                                 className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white w-full sm:w-auto px-8 h-12"
                             >
                                 Buy Now
