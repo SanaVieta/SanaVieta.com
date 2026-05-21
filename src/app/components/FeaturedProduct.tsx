@@ -13,8 +13,10 @@ import {
     SelectValue,
 } from "@/app/components/ui/select";
 import {useState} from "react";
+import Spinner from "./Spinner";
 
 export default function FeaturedProduct() {
+    const [redirecting, setRedirecting] = useState<boolean>(false);
     const { image, productTitle, unitPrice, productId, packages } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
     const productQuantity = cart?.lines.edges[0]?.node.quantity ?? 1;
@@ -91,7 +93,10 @@ export default function FeaturedProduct() {
 
                         <div className="flex items-baseline gap-4">
                             {isCalculating || displayPrice === null ?
-                                <span className="text-4xl font-bold text-[#1B5E20]">Calculating price...</span> :<>
+                                <>
+                                    <span className="text-4xl font-bold text-[#1B5E20]">Calculating price</span>
+                                    <Spinner theme="dark"/>
+                                </> :<>
                                 <span className="text-4xl font-bold text-[#1B5E20]">${displayPrice}</span>
                                 <span className="text-[#6B7D6B]">{productQuantity > 1 ? `${productQuantity} bottles` : 'per bottle'}</span>
                             </>}
@@ -112,10 +117,16 @@ export default function FeaturedProduct() {
                             <Button
                                 size="lg"
                                 disabled={!cart?.checkoutUrl}
-                                onClick={() => redirectToCheckout()}
+                                onClick={() => {
+                                    setRedirecting(true) 
+                                    redirectToCheckout()
+                                }}
                                 className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white w-full sm:w-auto px-8 h-12"
                             >
-                                Buy Now
+                                <div className="flex items-center gap-2 ">
+                                    {redirecting &&<Spinner theme="light" />}
+                                    <span>Buy Now</span>
+                                </div>
                             </Button>
                         </div>
                         <div className="flex items-center gap-2 text-sm text[#3E5A3E] pt-4">

@@ -21,6 +21,7 @@ import {
 import { useCartContext } from '@/hooks/useCartContext';
 import { useProductContext } from '@/hooks/useProductContext';
 import type { ProductPackage } from '@/types/ProductPackage';
+import Spinner from '../components/Spinner';
 
 export default function Product() {
     const productMedia = [
@@ -127,7 +128,7 @@ export default function Product() {
     const initializedFromCart = useRef(false);
     const { packages, productId } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
-
+    const [redirecting, setRedirecting] = useState<boolean>(false)
     useEffect(() => {
         if (!carouselApi) return;
 
@@ -408,13 +409,27 @@ export default function Product() {
                         <div className="space-y-4">
                             <Button
                                 size="lg"
-                                onClick={redirectToCheckout}
+                                onClick={() => {
+                                    setRedirecting(true) 
+                                    redirectToCheckout()
+                                }}
                                 className="w-full bg-[#4CAF50] hover:bg-[#2E7D32] text-white h-14 text-lg"
                             >
-                                {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
-                                {purchaseType === 'subscribe'
-                                    ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
-                                    : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
+                                <div className='flex items-center gap-2'>
+                                    {redirecting ? (
+                                        <>
+                                            <Spinner theme='light' />
+                                            Proceeding to Checkout...
+                                        </>
+                                    ) : (
+                                        <>
+                                            {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
+                                            {purchaseType === 'subscribe'
+                                                ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
+                                                : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
+                                        </>
+                                    )}
+                                </div>
                             </Button>
                             {purchaseType === 'subscribe' && (
                                 <p className="text-xs text-center text-[#6B7D6B]">
