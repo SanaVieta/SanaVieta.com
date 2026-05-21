@@ -1,5 +1,5 @@
 import {Badge} from "@/app/components/ui/badge";
-import {Check, ShieldCheck} from "lucide-react";
+import {Check, ShieldCheck, Truck} from "lucide-react";
 import {Button} from "@/app/components/ui/button";
 import {useProductContext} from "@/hooks/useProductContext";
 import {useCartContext} from "@/hooks/useCartContext";
@@ -118,7 +118,10 @@ export default function FeaturedProduct() {
                                 Buy Now
                             </Button>
                         </div>
-
+                        <div className="flex items-center gap-2 text-sm text[#3E5A3E] pt-4">
+                            <Truck className="w-5 h-5 text-[#4CAF50]" />
+                            <span className="text-[#6B7D6B]">Free Shipping</span>
+                        </div>
                         <div className="flex items-center gap-2 text-sm text-[#3E5A3E] pt-4">
                             <ShieldCheck className="w-5 h-5 text-[#4CAF50]"/>
                             <span>180-Day Money-Back Guarantee</span>
