@@ -169,10 +169,10 @@ export default function Product() {
 
             {/* Product Details */}
             <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-7xl mx-auto overflow-hidden">
                     {/* Product Image Carousel */}
                     <div className="lg:sticky lg:top-24 h-fit">
-                        <div className="relative bg-white rounded-2xl p-8 shadow-lg">
+                        <div className="relative bg-white rounded-2xl p-4 sm:p-8 shadow-lg overflow-hidden">
                             <Badge className="absolute top-4 right-4 z-10 bg-[#FFF8E1] text-[#8D6E00] border-[#FFE082]">
                                 Best Seller
                             </Badge>
@@ -180,15 +180,15 @@ export default function Product() {
                             <Carousel className="w-full" setApi={setCarouselApi}>
                                 <CarouselContent>
                                     {productMedia.map((media, index) => (
-                                        <CarouselItem key={index}>
+                                        <CarouselItem className="w-full" key={index}>
                                             {media.type === 'image' ? (
                                                 <img
                                                     src={media.src}
                                                     alt={media.alt}
-                                                    className="w-full rounded-lg object-contain h-[600px]"
+                                                    className="w-full rounded-lg object-contain h-[300px] sm:h-[500px] lg:h-[600px]"
                                                 />
                                             ) : (
-                                                <div className="relative w-full rounded-lg overflow-hidden bg-black flex items-center justify-center h-[600px]">
+                                                <div className="relative w-full rounded-lg overflow-hidden bg-black flex items-center justify-center h-[300px] sm:h-[500px] lg:h-[600px]">
                                                     <iframe
                                                         title='Video Player'
                                                         src={media.src.replace('/view?usp=sharing', '/preview')}
@@ -211,12 +211,12 @@ export default function Product() {
 
                             {/* Thumbnail Navigation */}
                             {productMedia.length > 1 && (
-                                <div className="flex gap-2 mt-4 justify-center">
+                                <div className="flex gap-2 mt-4 justify-center flex-wrap">
                                     {productMedia.map((media, index) => (
                                         <button
                                             key={index}
                                             onClick={() => carouselApi?.scrollTo(index)}
-                                            className={`w-16 h-16 rounded-lg border-2 overflow-hidden transition-all ${
+                                            className={`w-10 h-10 sm:w-16 sm:h-16 flex-shrink-0 rounded-lg border-2 overflow-hidden transition-all ${
                                                 currentSlide === index
                                                     ? 'border-[#4CAF50] ring-2 ring-[#4CAF50] ring-opacity-50'
                                                     : 'border-[#D7E5D7] hover:border-[#4CAF50]'
@@ -264,7 +264,7 @@ export default function Product() {
                             </div>
                         </div>
 
-                        <div className="bg-[#E8F5E9] rounded-xl p-6 border border-[#C8E6C9]">
+                        <div className="bg-[#E8F5E9] rounded-xl p-4 sm:p-6 border border-[#C8E6C9]">
                             <p className="text-[#1B5E20] leading-relaxed">
                                 Premium formula combining micronized Diosmin, enteric-coated Bromelain, and traditional botanicals
                                 for comprehensive lymphatic and vascular support. Designed for superior bioavailability and targeted relief.
@@ -336,8 +336,8 @@ export default function Product() {
 
                         {/* Package Selection */}
                         <div>
-                            <h3 className="font-semibold text-[#1B5E20] mb-4">Choose Your Package:</h3>
-                            <div className="space-y-3">
+                            <h3 className="font-semibold text-[#1B5E20] mb-4 ">Choose Your Package:</h3>
+                            <div className="space-y-3 px-2 sm:py-0">
                                 {packages.map((pkg) => {
                                     const currentPrice = purchaseType === 'subscribe' ? pkg.subscribePrice : pkg.price;
                                     const currentPricePerBottle = purchaseType === 'subscribe' ? pkg.subscribePricePerBottle : pkg.pricePerBottle;
