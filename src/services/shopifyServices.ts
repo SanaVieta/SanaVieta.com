@@ -188,6 +188,8 @@ const sanaLymphProductQuery = `
                       node {
                         id
                         title
+                        quantityAvailable
+                        availableForSale
                         price {
                           amount
                           currencyCode
