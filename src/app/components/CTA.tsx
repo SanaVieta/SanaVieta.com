@@ -1,12 +1,18 @@
 import {Card, CardContent} from "@/app/components/ui/card";
 import {Button} from "@/app/components/ui/button";
-import { handleCheckout } from "../../services/handleCheckout"
 import { useNavigate } from "react-router";
 
 export default function CTA(){
     const navigate = useNavigate();
     function onNavigateToContact(){
         navigate('/contact');
+        window.scroll({
+            top: 0,
+            behavior: 'instant'
+        })
+    }
+    function onNavigateToProduct(){
+       navigate('/product') 
         window.scroll({
             top: 0,
             behavior: 'instant'
@@ -27,7 +33,7 @@ export default function CTA(){
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button
                                 size="lg"
-                                onClick={handleCheckout}
+                                onClick={onNavigateToProduct}
                                 className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white px-8 h-12"
                             >
                                 Shop Now

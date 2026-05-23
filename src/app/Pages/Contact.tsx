@@ -5,8 +5,9 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
 import { useState } from 'react';
-
+import useNavigateToSection from '@/hooks/useNavigateToSection';
 export default function Contact() {
+    useNavigateToSection()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -33,7 +34,7 @@ export default function Contact() {
     return (
         <>
             {/* Header Section */}
-            <section className="bg-gradient-to-br from-[#E8F5E9] to-white py-16 md:py-24">
+            <section id='get_in_touch' className="bg-gradient-to-br from-[#E8F5E9] to-white py-16 md:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto text-center">
                         <h1 className="text-4xl md:text-5xl font-bold text-[#1B5E20] mb-4">
@@ -49,8 +50,9 @@ export default function Contact() {
 
             {/* Contact Content */}
             <section className="py-16 md:py-24">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    {/* was initially a grid put it back when you readd the contact form grid lg:grid-cols-2 gap-12  */}
+                    <div className="max-w-6xl mx-auto">
                         {/* Contact Information */}
                         <div className="space-y-8">
                             <div>
@@ -127,7 +129,7 @@ export default function Contact() {
                         </div>
 
                         {/* Contact Form */}
-                        <div>
+                        {/* <div>
                             <Card className="border-[#D7E5D7] shadow-lg">
                                 <CardContent className="pt-6">
                                     <h2 className="text-2xl font-bold text-[#1B5E20] mb-6">Send us a Message</h2>
@@ -214,13 +216,13 @@ export default function Contact() {
                                     </form>
                                 </CardContent>
                             </Card>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
 
             {/* FAQ Quick Links */}
-            <section className="bg-[#F1F8F1] py-16">
+            {/* <section className="bg-[#F1F8F1] py-16">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-2xl md:text-3xl font-bold text-[#1B5E20] mb-4">
@@ -242,7 +244,7 @@ export default function Contact() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </>
     );
 }

@@ -1,5 +1,5 @@
 import logoTextLight from "@/imports/SanaV_Logo_-_BG_removed-1.png";
-
+import { Link } from "react-router";
 export default function Footer(){
     return (
         <footer className="bg-[#1B5E20] text-white py-12">
@@ -16,26 +16,28 @@ export default function Footer(){
                     <div>
                         <h4 className="font-semibold mb-4">Shop</h4>
                         <ul className="space-y-2 text-sm text-[#E8F5E9]">
-                            <li><a href="#" className="hover:text-white transition-colors">All Products</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Best Sellers</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Bundles</a></li>
+                            <li><Link to="/product#product_details" className="hover:text-white transition-colors">All Products</Link></li>
+                            {/* <li><Link to="/product#product_ingredients" className="hover:text-white transition-colors">Product Ingredients</Link></li> */}
+                            {/* <li><Link to="/product" className="hover:text-white transition-colors">Bundles</Link></li> */}
                         </ul>
                     </div>
                     <div>
                         <h4 className="font-semibold mb-4">Support</h4>
                         <ul className="space-y-2 text-sm text-[#E8F5E9]">
-                            <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Shipping</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Returns</a></li>
+                            <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+                            <li><Link to="/product#faq" className="hover:text-white transition-colors">FAQ</Link></li>
+                            {/* <li><a href="#" className="hover:text-white transition-colors">Shipping</a></li>
+                            <li><a href="#" className="hover:text-white transition-colors">Returns</a></li> */}
                         </ul>
                     </div>
                     <div>
                         <h4 className="font-semibold mb-4">Company</h4>
                         <ul className="space-y-2 text-sm text-[#E8F5E9]">
-                            <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Our Story</a></li>
-                            <li><a href="#" className="hover:text-white transition-colors">Quality</a></li>
+                            <li><Link to="/about#about_us" className="hover:text-white transition-colors">About Us</Link></li>
+                            <li><Link to="/about#our_story" className="hover:text-white transition-colors">Our Story</Link></li>
+                            <li><Link to="/about#our_commitment" className="hover:text-white transition-colors">Our Commitment</Link></li>
+                            <li><Link to="/about#our_values" className="hover:text-white transition-colors">Our Values</Link></li>
+                            <li><Link to="/about#quality" className="hover:text-white transition-colors">Quality</Link></li>
                         </ul>
                     </div>
                 </div>

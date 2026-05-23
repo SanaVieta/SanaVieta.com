@@ -21,9 +21,11 @@ import {
 import { useCartContext } from '@/hooks/useCartContext';
 import { useProductContext } from '@/hooks/useProductContext';
 import type { ProductPackage } from '@/types/ProductPackage';
+import useNavigateToSection from '@/hooks/useNavigateToSection';
 import Spinner from '../components/Spinner';
 
 export default function Product() {
+    useNavigateToSection();
     const productMedia = [
         {
             type: 'image' as const,
@@ -155,20 +157,13 @@ export default function Product() {
         return;
     }
 
+    function onNavigateToTop(){
+        window.scroll(0,0);
+    }
     return (
         <div className="pb-16">
-            <section className="bg-gradient-to-br from-[#E8F5E9] to-white py-8 md:py-12">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-2 text-sm text-[#6B7D6B] mb-4">
-                        <a href="/" className="hover:text-[#2E7D32]">Home</a>
-                        <span>/</span>
-                        <span className="text-[#1B5E20]">SanaLymph™</span>
-                    </div>
-                </div>
-            </section>
-
             {/* Product Details */}
-            <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <section id='product_details' className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-7xl mx-auto overflow-hidden">
                     {/* Product Image Carousel */}
                     <div className="lg:sticky lg:top-24 h-fit">
@@ -457,7 +452,7 @@ export default function Product() {
             </section>
 
             {/* Ingredients Section */}
-            <section className="bg-white py-16">
+            <section id='product_ingredients' className="bg-white py-16">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
                     <h2 className="text-3xl font-bold text-[#1B5E20] text-center mb-12">
                         Premium Ingredients
@@ -664,7 +659,7 @@ export default function Product() {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-16">
+            <section id="faq" className="py-16">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                     <h2 className="text-3xl font-bold text-[#1B5E20] text-center mb-12">
                         Frequently Asked Questions
@@ -711,7 +706,7 @@ export default function Product() {
                     </p>
                     <Button
                         size="lg"
-                        onClick={() => console.log('something')}
+                        onClick={onNavigateToTop}
                         className="bg-[#4CAF50] hover:bg-[#2E7D32] text-white px-12 h-14 text-lg"
                     >
                         Order Now

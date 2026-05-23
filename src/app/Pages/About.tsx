@@ -9,8 +9,10 @@ import {
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import storyImage from "../../imports/Screenshot_2026-05-08_at_3.21.28_PM.png";
+import useNavigateToSection from "@/hooks/useNavigateToSection";
 
 export default function About() {
+    useNavigateToSection();
     const values = [
         {
             icon: Leaf,
@@ -64,7 +66,7 @@ export default function About() {
     return (
         <div className="pb-16">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-[#E8F5E9] to-white py-16 md:py-24">
+            <section id="about_us" className="bg-gradient-to-br from-[#E8F5E9] to-white py-16 md:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
                         <Badge className="bg-[#E8F5E9] text-[#1B5E20] border-[#C8E6C9] hover:bg-[#E8F5E9] mb-6">
@@ -86,7 +88,7 @@ export default function About() {
             </section>
 
             {/* Our Story */}
-            <section className="py-16 md:py-24">
+            <section id='our_story' className="py-16 md:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold text-[#1B5E20] mb-6 text-center">
@@ -134,7 +136,7 @@ export default function About() {
             </section>
 
             {/* Our Values */}
-            <section className="bg-white py-16 md:py-24">
+            <section id='our_values' className="bg-white py-16 md:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold text-[#1B5E20] mb-12 text-center">
@@ -172,7 +174,7 @@ export default function About() {
             </section>
 
             {/* Our Commitments */}
-            <section className="py-16 md:py-24">
+            <section id='our_commitment' className="py-16 md:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold text-[#1B5E20] mb-12 text-center">
@@ -206,7 +208,7 @@ export default function About() {
             </section>
 
             {/* Quality Standards */}
-            <section className="bg-gradient-to-br from-[#E8F5E9] to-white py-16 md:py-24">
+            <section id='quality' className="bg-gradient-to-br from-[#E8F5E9] to-white py-16 md:py-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-5xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold text-[#1B5E20] mb-12 text-center">
