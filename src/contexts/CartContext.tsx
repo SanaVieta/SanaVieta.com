@@ -21,11 +21,11 @@ export default function CartProvider(props: CartContextProps){
     const [cart, setCart] = useState<Cart | null>(null);
 
     async function addToCart(merchandiseId: string, quantity: number){
-        const cartId = localStorage.getItem('cartId');
+        const cartId = sessionStorage.getItem('cartId');
         if (!cartId) {
             const response = await createCart(merchandiseId, quantity);
             const newCart = response.data.cartCreate.cart;
-            localStorage.setItem('cartId', newCart.id);
+            sessionStorage.setItem('cartId', newCart.id);
             setCart(newCart);
             return;
         }
@@ -34,7 +34,7 @@ export default function CartProvider(props: CartContextProps){
         if (!freshCart) {
             const response = await createCart(merchandiseId, quantity);
             const newCart = response.data.cartCreate.cart;
-            localStorage.setItem('cartId', newCart.id);
+            sessionStorage.setItem('cartId', newCart.id);
             setCart(newCart);
             return;
         }
@@ -47,7 +47,7 @@ export default function CartProvider(props: CartContextProps){
     }
 
     async function removeFromCart(merchandiseId: string){
-        const cartId = localStorage.getItem('cartId');
+        const cartId = sessionStorage.getItem('cartId');
         if (cartId) {
             const response = await deleteFromCart(cartId, [merchandiseId]);
             setCart(response.data.cartLinesRemove.cart);
@@ -69,7 +69,7 @@ export default function CartProvider(props: CartContextProps){
     }
 
     useEffect(() => {
-        const cartId = localStorage.getItem('cartId');
+        const cartId = sessionStorage.getItem('cartId');
         if (cartId) {
             fetchCart(cartId).then(response =>setCart(response.data.cart));
         }

@@ -17,7 +17,15 @@ import Spinner from "./Spinner";
 
 export default function FeaturedProduct() {
     const [redirecting, setRedirecting] = useState<boolean>(false);
-    const { image, productTitle, unitPrice, productId, packages } = useProductContext();
+    const { 
+        image, 
+        productTitle, 
+        unitPrice, 
+        productId, 
+        packages, 
+        availableForSale, 
+        quantityAvailable 
+    } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
     const productQuantity = cart?.lines.edges[0]?.node.quantity ?? 1;
     const [isCalculating, setIsCalculating] = useState<boolean>(false);
@@ -28,6 +36,8 @@ export default function FeaturedProduct() {
     const displayPrice = isNaN(rawPrice)
         ? null
         : rawPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const isSoldOut = !availableForSale;
+    const lowQuantity = quantityAvailable && quantityAvailable <= 10;
 
     async function handleQuantityChange(value: string) {
         try {
@@ -116,7 +126,7 @@ export default function FeaturedProduct() {
                             </Select>
                             <Button
                                 size="lg"
-                                disabled={!cart?.checkoutUrl}
+                                disabled={!cart?.checkoutUrl || isSoldOut}
                                 onClick={() => {
                                     setRedirecting(true) 
                                     redirectToCheckout()
@@ -128,7 +138,10 @@ export default function FeaturedProduct() {
                                     <span>Buy Now</span>
                                 </div>
                             </Button>
+                            
                         </div>
+                        { isSoldOut && <p className="text-sm font-bold text-red-600">This product is currently sold out.</p>}
+                        { lowQuantity && <p className="text-sm font-bold text-red-600">Only {quantityAvailable} left. Order Now!.</p> }
                         <div className="flex items-center gap-2 text-sm text[#3E5A3E] pt-4">
                             <Truck className="w-5 h-5 text-[#4CAF50]" />
                             <span className="text-[#6B7D6B]">Free Shipping</span>

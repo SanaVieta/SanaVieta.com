@@ -11,6 +11,8 @@ export type ProductPrice = {
 export type ProductVariant = {
   price: ProductPrice;
   id: string;
+  quantityAvailable: number;
+  availableForSale: boolean;
 };
 
 export type ProductNode = {

@@ -128,9 +128,11 @@ export default function Product() {
     const [carouselApi, setCarouselApi] = useState<any>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const initializedFromCart = useRef(false);
-    const { packages, productId } = useProductContext();
+    const { packages, productId, availableForSale, quantityAvailable } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
     const [redirecting, setRedirecting] = useState<boolean>(false)
+    const lowQuantity = quantityAvailable && quantityAvailable <= 10;
+    const isSoldOut = !availableForSale;
     useEffect(() => {
         if (!carouselApi) return;
 
@@ -331,7 +333,11 @@ export default function Product() {
 
                         {/* Package Selection */}
                         <div>
-                            <h3 className="font-semibold text-[#1B5E20] mb-4 ">Choose Your Package:</h3>
+                            <div className='flex flex-col sm:justify-between sm:flex-row gap-2'>
+                                <h3 className="font-semibold text-[#1B5E20] sm:mb-4">Choose Your Package:</h3>
+                                {lowQuantity && <h3 className='font-semibold text-red-600 sm:mb-4'>Only {quantityAvailable} left. Order Now!</h3>}
+                                {isSoldOut && <h3 className='font-semibold text-red-600 sm:mb-4'>This product is currently sold out.</h3>}
+                            </div>
                             <div className="space-y-3 px-2 sm:py-0">
                                 {packages.map((pkg) => {
                                     const currentPrice = purchaseType === 'subscribe' ? pkg.subscribePrice : pkg.price;
@@ -408,6 +414,7 @@ export default function Product() {
                                     setRedirecting(true) 
                                     redirectToCheckout()
                                 }}
+                                disabled={isSoldOut}
                                 className="w-full bg-[#4CAF50] hover:bg-[#2E7D32] text-white h-14 text-lg"
                             >
                                 <div className='flex items-center gap-2'>
@@ -417,11 +424,14 @@ export default function Product() {
                                             Proceeding to Checkout...
                                         </>
                                     ) : (
-                                        <>
+                                        !isSoldOut? <>
                                             {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
                                             {purchaseType === 'subscribe'
                                                 ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
                                                 : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
+                                        </> : 
+                                        <>
+                                            Sold Out
                                         </>
                                     )}
                                 </div>
