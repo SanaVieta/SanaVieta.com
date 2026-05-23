@@ -35,8 +35,8 @@ const PACKAGE_TIERS = [
     { id: '12-bottle' as const, name: 'Ultimate Value', bottles: 12, savings: 33, subscribeSavings: 41, badge: 'Best Price',        frequency: 'every 12 months', ultimate: true },
 ] as const;
 
-function buildPackages(unitPrice: number): ProductPackage[] {
-    return PACKAGE_TIERS.map(tier => {
+function buildPackages(unitPrice: number, quantityAvailable: number): ProductPackage[] {
+    return PACKAGE_TIERS.filter(tier => quantityAvailable >= tier.bottles).map(tier => {
         const pricePerBottle         = Math.round(unitPrice * (1 - tier.savings         / 100) * 100) / 100;
         const subscribePricePerBottle = Math.round(unitPrice * (1 - tier.subscribeSavings / 100) * 100) / 100;
         return {
@@ -56,7 +56,7 @@ export default function ProductProvider(props: ProductProviderProps){
     const [productTitle, setProductTitle] = useState<string | null>(null);
     const [quantityAvailable, setQuantityAvailable] = useState<number>(0);
     const [availableForSale, setAvailableForSale] = useState<boolean>(false);
-    const packages = useMemo(() => buildPackages(unitPrice ?? 0), [unitPrice])
+    const packages = useMemo(() => buildPackages(unitPrice ?? 0, quantityAvailable), [unitPrice, quantityAvailable])
     useEffect(() => {
         (async () => {
             const productData = await fetchProductData();
