@@ -13,9 +13,19 @@ interface IProductContext{
     image: string | null | undefined;
     productTitle: string | null | undefined;
     unitPrice: number | null | undefined;
+    quantityAvailable: number| null | undefined;
+    availableForSale: boolean | null | undefined;
 }
 
-export const ProductContext = createContext<IProductContext>({packages: [], productId: null, image: null, productTitle: null, unitPrice: null});
+export const ProductContext = createContext<IProductContext>({
+    packages: [], 
+    productId: null, 
+    image: null, 
+    productTitle: null, 
+    unitPrice: null,
+    availableForSale: null,
+    quantityAvailable: null
+});
 
 
 const PACKAGE_TIERS = [
@@ -44,6 +54,8 @@ export default function ProductProvider(props: ProductProviderProps){
     const [productId, setProductId] = useState<string | null>(null);
     const [image, setImage] = useState<string | null>(null);
     const [productTitle, setProductTitle] = useState<string | null>(null);
+    const [quantityAvailable, setQuantityAvailable] = useState<number>(0);
+    const [availableForSale, setAvailableForSale] = useState<boolean>(false);
     const packages = useMemo(() => buildPackages(unitPrice ?? 0), [unitPrice])
     useEffect(() => {
         (async () => {
@@ -54,11 +66,21 @@ export default function ProductProvider(props: ProductProviderProps){
             setProductId(variant?.id ?? null);
             setImage(node?.images.edges[0].node.url ?? null);
             setProductTitle(node?.title ?? null);
+            setQuantityAvailable(variant.quantityAvailable);
+            setAvailableForSale(variant.availableForSale);
         })()
     },[])
 
     return(
-        <ProductContext.Provider value={{packages, productId, image, productTitle, unitPrice}}>
+        <ProductContext.Provider value={{
+            packages, 
+            productId, 
+            image, 
+            productTitle, 
+            unitPrice, 
+            availableForSale, 
+            quantityAvailable
+        }}>
             {props.children}
         </ProductContext.Provider>
     )
