@@ -54,9 +54,9 @@ export default function ProductProvider(props: ProductProviderProps){
     const [productId, setProductId] = useState<string | null>(null);
     const [image, setImage] = useState<string | null>(null);
     const [productTitle, setProductTitle] = useState<string | null>(null);
-    const [quantityAvailable, setQuantityAvailable] = useState<number>(0);
+    const [quantityAvailable, setQuantityAvailable] = useState<number | null>(null);
     const [availableForSale, setAvailableForSale] = useState<boolean>(false);
-    const packages = useMemo(() => buildPackages(unitPrice ?? 0, quantityAvailable), [unitPrice, quantityAvailable])
+    const packages = useMemo(() => buildPackages(unitPrice ?? 0, quantityAvailable as number), [unitPrice, quantityAvailable])
     useEffect(() => {
         (async () => {
             const productData = await fetchProductData();

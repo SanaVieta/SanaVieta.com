@@ -131,7 +131,8 @@ export default function Product() {
     const { packages, productId, availableForSale, quantityAvailable } = useProductContext();
     const { cart, redirectToCheckout, addToCart } = useCartContext();
     const [redirecting, setRedirecting] = useState<boolean>(false)
-    const lowQuantity = quantityAvailable && quantityAvailable <= 10;
+    const lowQuantity = quantityAvailable && (quantityAvailable <= 10 && quantityAvailable >= 0);
+
     const isSoldOut = !availableForSale;
     useEffect(() => {
         if (!carouselApi) return;

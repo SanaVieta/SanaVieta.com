@@ -37,7 +37,7 @@ export default function FeaturedProduct() {
         ? null
         : rawPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const isSoldOut = !availableForSale;
-    const lowQuantity = quantityAvailable && quantityAvailable <= 10;
+    const lowQuantity = quantityAvailable && (quantityAvailable <= 10 && quantityAvailable >= 0);
 
     async function handleQuantityChange(value: string) {
         try {
