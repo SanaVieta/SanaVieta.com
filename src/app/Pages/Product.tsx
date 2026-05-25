@@ -128,8 +128,8 @@ export default function Product() {
     const [carouselApi, setCarouselApi] = useState<any>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const initializedFromCart = useRef(false);
-    const { packages, productId, availableForSale, quantityAvailable } = useProductContext();
-    const { cart, redirectToCheckout, addToCart } = useCartContext();
+    const { packages, productId, availableForSale, quantityAvailable, isPreOrder, releaseDate } = useProductContext();
+    const { cart, redirectToCheckout, addToCart, addCartNote } = useCartContext();
     const [redirecting, setRedirecting] = useState<boolean>(false)
     const lowQuantity = quantityAvailable && (quantityAvailable <= 10 && quantityAvailable >= 0);
 
@@ -155,7 +155,10 @@ export default function Product() {
         if(pkg && productId){
             const quantity = pkg.bottles;
             setSelectedPackage(pkgId)
-            await addToCart(productId, quantity); 
+            await addToCart(productId, quantity);
+            if(isPreOrder && releaseDate){
+                await addCartNote(`This is a pre-order item and will ship on ${releaseDate}`)
+            }
         }
         return;
     }
@@ -337,9 +340,14 @@ export default function Product() {
                             <div className='flex flex-col sm:justify-between sm:flex-row gap-2'>
                                 <h3 className="font-semibold text-[#1B5E20] sm:mb-4">Choose Your Package:</h3>
                                 {lowQuantity && <h3 className='font-semibold text-red-600 sm:mb-4'>Only {quantityAvailable} left. Order Now!</h3>}
-                                {isSoldOut && <h3 className='font-semibold text-red-600 sm:mb-4'>This product is currently sold out.</h3>}
+                                {isSoldOut && !isPreOrder && <h3 className='font-semibold text-red-600 sm:mb-4'>This product is currently sold out.</h3>}
                             </div>
-                            <div className="space-y-3 px-2 sm:py-0">
+                            
+                            <div className='flex sm:justify-between flex-col gap-2'>
+                                {isPreOrder && <h3 className='font-semibold text-[#2E7D32] '>Available for pre-order. Reserve yours today!</h3>}
+                                {isPreOrder && releaseDate && !isNaN(releaseDate.getTime()) && <h3 className='text-sm text-[#2E7D32]'>Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</h3>}
+                            </div>
+                            <div className="mt-4 space-y-3 px-2 sm:py-0">
                                 {packages.map((pkg) => {
                                     const currentPrice = purchaseType === 'subscribe' ? pkg.subscribePrice : pkg.price;
                                     const currentPricePerBottle = purchaseType === 'subscribe' ? pkg.subscribePricePerBottle : pkg.pricePerBottle;
@@ -426,7 +434,7 @@ export default function Product() {
                                         </>
                                     ) : (
                                         !isSoldOut? <>
-                                            {purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
+                                            {isPreOrder ? 'Preorder' : purchaseType === 'subscribe' ? 'Subscribe Now' : 'Proceed to Checkout'} - $
                                             {purchaseType === 'subscribe'
                                                 ? packages.find(p => p.id === selectedPackage)?.subscribePrice.toFixed(2)
                                                 : packages.find(p => p.id === selectedPackage)?.price.toFixed(2)}
