@@ -149,8 +149,8 @@ export default function FeaturedProduct() {
                             
                         </div>
                         { isSoldOut && !isPreOrder && <p className="text-sm font-bold text-red-600">This product is currently sold out.</p>}
-                        { isPreOrder && <p className="text-sm font-bold text-[#2E7D32]">Available for pre-order. Reserve yours today!</p>}
-                        { isPreOrder && releaseDate && !isNaN(releaseDate.getTime()) && <p className="text-sm text-[#2E7D32]">Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+                        { (isPreOrder && !isSoldOut) && <p className="text-sm font-bold text-[#2E7D32]">Available for pre-order. Reserve yours today!</p>}
+                        { (isPreOrder && !isSoldOut) && releaseDate && !isNaN(releaseDate.getTime()) && <p className="text-sm text-[#2E7D32]">Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                         { lowQuantity && <p className="text-sm font-bold text-red-600">Only {quantityAvailable} left. Order Now!.</p> }
                         <div className="flex items-center gap-2 text-sm text[#3E5A3E] pt-4">
                             <Truck className="w-5 h-5 text-[#4CAF50]" />

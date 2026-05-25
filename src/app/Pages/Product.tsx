@@ -344,8 +344,8 @@ export default function Product() {
                             </div>
                             
                             <div className='flex sm:justify-between flex-col gap-2'>
-                                {isPreOrder && <h3 className='font-semibold text-[#2E7D32] '>Available for pre-order. Reserve yours today!</h3>}
-                                {isPreOrder && releaseDate && !isNaN(releaseDate.getTime()) && <h3 className='text-sm text-[#2E7D32]'>Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</h3>}
+                                {(isPreOrder && !isSoldOut) && <h3 className='font-semibold text-[#2E7D32] '>Available for pre-order. Reserve yours today!</h3>}
+                                {(isPreOrder && !isSoldOut) && releaseDate && !isNaN(releaseDate.getTime()) && <h3 className='text-sm text-[#2E7D32]'>Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</h3>}
                             </div>
                             <div className="mt-4 space-y-3 px-2 sm:py-0">
                                 {packages.map((pkg) => {
