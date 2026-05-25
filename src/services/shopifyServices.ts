@@ -1,6 +1,5 @@
 import type { ProductsResponse } from "src/types/product";
 import type { CartCreateResponse, CartFetchResponse, CartUpdateResponse, CartLinesAddResponse, CartRemoveResponse } from "src/types/cart";
-import { createTailwindMerge } from "tailwind-merge";
 
 const STORE_ENDPOINT: string = import.meta.env.VITE_STORE_URL;
 const ACCESS_TOKEN: string = import.meta.env.VITE_ACCESS_TOKEN
