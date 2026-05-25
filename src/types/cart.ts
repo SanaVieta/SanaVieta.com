@@ -75,4 +75,6 @@ export type CartContextType = {
     removeFromCart: (merchandiseId: string, quantity: number) => void;
     buyNow: (merchandiseId: string, quantity: number) => void;
     redirectToCheckout: () => void;
+    addCartNote: (content: string) => void
+
 };
