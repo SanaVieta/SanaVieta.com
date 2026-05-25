@@ -151,6 +151,19 @@ mutation {
   }
 }
 `
+const addCartNote = (cartId: string, note: string) => `
+  mutation {
+  cartNoteUpdate(
+    cartId: "${cartId}"
+    note: "${note}" 
+  ) {
+    cart {
+      id
+      note
+    }
+  }
+}
+` 
 
 const addCartLineQuery = (cartId: string, merchandiseId: string, quantity: number) => `
 mutation {
@@ -175,6 +188,18 @@ const sanaLymphProductQuery = `
                   title
                   description
                   handle
+                  preorder: metafield(
+                    namespace: "custom"
+                    key: "preorder"
+                  ) {
+                    value  
+                  }
+                  release_date: metafield(
+                    namespace: "custom"
+                    key: "release_date"
+                  ) {
+                    value  
+                  }
                   images(first: 1) {
                     edges {
                       node {
@@ -245,4 +270,8 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
 
 export async function addLineToCart(cartId: string, merchandiseId: string, quantity: number): Promise<CartLinesAddResponse> {
     return shopifyFetch(addCartLineQuery(cartId, merchandiseId, quantity));
+}
+
+export async function addNoteToCart(cartId: string, content: string){
+  return shopifyFetch(addCartNote(cartId, content))
 }

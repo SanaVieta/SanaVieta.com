@@ -20,6 +20,12 @@ export type ProductNode = {
   title: string;
   description: string;
   handle: string;
+  preorder: {
+    value: string
+  }
+  release_date:{
+    value: string
+  }
   images: { edges: { node: ProductImage }[] };
   variants: { edges: { node: ProductVariant }[] };
 };

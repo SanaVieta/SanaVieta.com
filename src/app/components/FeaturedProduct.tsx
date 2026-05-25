@@ -17,16 +17,18 @@ import Spinner from "./Spinner";
 
 export default function FeaturedProduct() {
     const [redirecting, setRedirecting] = useState<boolean>(false);
-    const { 
-        image, 
-        productTitle, 
-        unitPrice, 
-        productId, 
-        packages, 
-        availableForSale, 
-        quantityAvailable 
+    const {
+        image,
+        productTitle,
+        unitPrice,
+        productId,
+        packages,
+        availableForSale,
+        quantityAvailable,
+        isPreOrder,
+        releaseDate
     } = useProductContext();
-    const { cart, redirectToCheckout, addToCart } = useCartContext();
+    const { cart, redirectToCheckout, addToCart, addCartNote } = useCartContext();
     const productQuantity = cart?.lines.edges[0]?.node.quantity ?? 1;
     const [isCalculating, setIsCalculating] = useState<boolean>(false);
 
@@ -42,7 +44,12 @@ export default function FeaturedProduct() {
     async function handleQuantityChange(value: string) {
         try {
             setIsCalculating(true);
-            if (productId) await addToCart(productId, Number(value));
+            if (productId) {
+                await addToCart(productId, Number(value));
+                if(isPreOrder && releaseDate){
+                    await addCartNote(`This is a pre-order item and will ship on ${releaseDate}`)
+                } 
+            }
         } finally {
             setIsCalculating(false);
         }
@@ -135,12 +142,14 @@ export default function FeaturedProduct() {
                             >
                                 <div className="flex items-center gap-2 ">
                                     {redirecting &&<Spinner theme="light" />}
-                                    <span>Buy Now</span>
+                                    <span>{isPreOrder ? 'Preorder' : 'Buy Now'}</span>
                                 </div>
                             </Button>
                             
                         </div>
-                        { isSoldOut && <p className="text-sm font-bold text-red-600">This product is currently sold out.</p>}
+                        { isSoldOut && !isPreOrder && <p className="text-sm font-bold text-red-600">This product is currently sold out.</p>}
+                        { isPreOrder && <p className="text-sm font-bold text-[#2E7D32]">Available for pre-order. Reserve yours today!</p>}
+                        { isPreOrder && releaseDate && !isNaN(releaseDate.getTime()) && <p className="text-sm text-[#2E7D32]">Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                         { lowQuantity && <p className="text-sm font-bold text-red-600">Only {quantityAvailable} left. Order Now!.</p> }
                         <div className="flex items-center gap-2 text-sm text[#3E5A3E] pt-4">
                             <Truck className="w-5 h-5 text-[#4CAF50]" />

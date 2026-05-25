@@ -1,6 +1,6 @@
 import type { Cart, CartContextType } from "@/types/cart";
 import {createContext, type JSX, useEffect, useState} from "react";
-import {createCart, fetchCart, addLineToCart, removeFromCart as deleteFromCart } from "@/services/shopifyServices";
+import {createCart, fetchCart, addLineToCart, removeFromCart as deleteFromCart, addNoteToCart } from "@/services/shopifyServices";
 
 
 const defaultCartContext: CartContextType = {
@@ -8,7 +8,8 @@ const defaultCartContext: CartContextType = {
     addToCart: (_merchandiseId: string, _quantity: number) => Promise.resolve(),
     removeFromCart: (_merchandiseId: string, _quantity: number) => {},
     buyNow: (_merchandiseId: string, _quantity: number) => {},
-    redirectToCheckout: () => {}
+    redirectToCheckout: () => {},
+    addCartNote: (content: string) => {}
 };
 
 export const CartContext = createContext<CartContextType>(defaultCartContext);
@@ -45,7 +46,12 @@ export default function CartProvider(props: CartContextProps){
         const response = await addLineToCart(cartId, merchandiseId, quantity);
         setCart(response.data.cartLinesAdd.cart);
     }
-
+    async function addCartNote(content: string){
+        const cartId = sessionStorage.getItem('cartId');
+        if(cartId){
+            await addNoteToCart(cartId, content);
+        }
+    }
     async function removeFromCart(merchandiseId: string){
         const cartId = sessionStorage.getItem('cartId');
         if (cartId) {
@@ -76,7 +82,7 @@ export default function CartProvider(props: CartContextProps){
     }, []);
 
    return (
-       <CartContext.Provider value={{ cart, addToCart, removeFromCart, buyNow, redirectToCheckout }}>
+       <CartContext.Provider value={{ cart, addToCart, removeFromCart, buyNow, redirectToCheckout, addCartNote }}>
            {props.children}
        </CartContext.Provider>
    )
