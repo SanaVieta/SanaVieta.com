@@ -15,6 +15,8 @@ interface IProductContext{
     unitPrice: number | null | undefined;
     quantityAvailable: number| null | undefined;
     availableForSale: boolean | null | undefined;
+    isPreOrder: boolean | null | undefined
+    releaseDate: Date | null | undefined;
 }
 
 export const ProductContext = createContext<IProductContext>({
@@ -24,7 +26,9 @@ export const ProductContext = createContext<IProductContext>({
     productTitle: null, 
     unitPrice: null,
     availableForSale: null,
-    quantityAvailable: null
+    quantityAvailable: null,
+    isPreOrder: null,
+    releaseDate: null
 });
 
 
@@ -56,18 +60,25 @@ export default function ProductProvider(props: ProductProviderProps){
     const [productTitle, setProductTitle] = useState<string | null>(null);
     const [quantityAvailable, setQuantityAvailable] = useState<number | null>(null);
     const [availableForSale, setAvailableForSale] = useState<boolean>(false);
+    const [isPreOrder, setIsPreOrder] = useState<boolean>(false);
+    const [releaseDate, setReleaseDate] = useState<Date | null>();
     const packages = useMemo(() => buildPackages(unitPrice ?? 0, quantityAvailable as number), [unitPrice, quantityAvailable])
     useEffect(() => {
         (async () => {
             const productData = await fetchProductData();
             const node = productData?.data.products.edges[0].node;
             const variant = node?.variants.edges[0].node;
+            const isPreOrder = node?.preorder?.value === "true"; 
+            const releaseDate = new Date(node?.release_date?.value);
             setUnitPrice(Number(variant?.price.amount));
             setProductId(variant?.id ?? null);
             setImage(node?.images.edges[0].node.url ?? null);
             setProductTitle(node?.title ?? null);
             setQuantityAvailable(variant.quantityAvailable);
             setAvailableForSale(variant.availableForSale);
+            setIsPreOrder(isPreOrder)
+            setReleaseDate(releaseDate);
+
         })()
     },[])
 
@@ -79,7 +90,9 @@ export default function ProductProvider(props: ProductProviderProps){
             productTitle, 
             unitPrice, 
             availableForSale, 
-            quantityAvailable
+            quantityAvailable,
+            isPreOrder,
+            releaseDate
         }}>
             {props.children}
         </ProductContext.Provider>
