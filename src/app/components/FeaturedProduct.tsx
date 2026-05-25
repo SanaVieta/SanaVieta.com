@@ -120,13 +120,14 @@ export default function FeaturedProduct() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                            <Select value={productQuantity.toString()} onValueChange={handleQuantityChange}>
+                            <Select value={!cart? '0' : productQuantity.toString()} onValueChange={handleQuantityChange}>
                                 <SelectTrigger className="w-full max-w-48">
                                     <SelectValue placeholder="Select Quantity"/>
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Quantity</SelectLabel>
+                                        {!cart && <SelectItem value={'0'}>Quantity</SelectItem> }
                                         {packages.map((pkg, i) => <SelectItem key={i} value={pkg.bottles.toString()}>{pkg.bottles}</SelectItem>)}
                                     </SelectGroup>
                                 </SelectContent>

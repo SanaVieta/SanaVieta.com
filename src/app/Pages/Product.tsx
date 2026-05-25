@@ -122,7 +122,7 @@ export default function Product() {
         },
     ];
 
-    const [selectedPackage, setSelectedPackage] = useState<ProductPackage['id']>('3-bottle');
+    const [selectedPackage, setSelectedPackage] = useState<ProductPackage['id'] | null>();
     const [purchaseType, _setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [carouselApi, setCarouselApi] = useState<any>(null);
@@ -423,7 +423,7 @@ export default function Product() {
                                     setRedirecting(true) 
                                     redirectToCheckout()
                                 }}
-                                disabled={isSoldOut}
+                                disabled={isSoldOut || !selectedPackage}
                                 className="w-full bg-[#4CAF50] hover:bg-[#2E7D32] text-white h-14 text-lg"
                             >
                                 <div className='flex items-center gap-2'>
