@@ -108,6 +108,7 @@ export default function FeaturedProduct() {
                             </div>
                         </div>
 
+                        {!isSoldOut && <>
                         <div className="flex items-baseline gap-4">
                             {isCalculating || displayPrice === null ?
                                 <>
@@ -120,7 +121,7 @@ export default function FeaturedProduct() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                            <Select value={!cart? '0' : productQuantity.toString()} onValueChange={handleQuantityChange}>
+                            <Select value={!cart? '0' : productQuantity.toString()} onValueChange={handleQuantityChange} disabled={isCalculating}>
                                 <SelectTrigger className="w-full max-w-48">
                                     <SelectValue placeholder="Select Quantity"/>
                                 </SelectTrigger>
@@ -148,6 +149,7 @@ export default function FeaturedProduct() {
                             </Button>
                             
                         </div>
+                        </>}
                         { isSoldOut && !isPreOrder && <p className="text-sm font-bold text-red-600">This product is currently sold out.</p>}
                         { (isPreOrder && !isSoldOut) && <p className="text-sm font-bold text-[#2E7D32]">Available for pre-order. Reserve yours today!</p>}
                         { (isPreOrder && !isSoldOut) && releaseDate && !isNaN(releaseDate.getTime()) && <p className="text-sm text-[#2E7D32]">Expected release: {releaseDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>}

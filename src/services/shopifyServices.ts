@@ -5,14 +5,15 @@ const STORE_ENDPOINT: string = import.meta.env.VITE_STORE_URL;
 const ACCESS_TOKEN: string = import.meta.env.VITE_ACCESS_TOKEN
 
 
-const cartCreateQuery = (quantity: number, merchandiseId: string) => `
+const cartCreateQuery = (quantity: number, merchandiseId: string, sellingPlanId?: string) => `
 mutation {
   cartCreate(
     input: {
       lines: [
         {
-          quantity: ${quantity} 
+          quantity: ${quantity}
           merchandiseId: "${merchandiseId}"
+          ${sellingPlanId ? `sellingPlanId: "${sellingPlanId}"` : ''}
         }
       ],
     }
@@ -165,11 +166,11 @@ const addCartNote = (cartId: string, note: string) => `
 }
 ` 
 
-const addCartLineQuery = (cartId: string, merchandiseId: string, quantity: number) => `
+const addCartLineQuery = (cartId: string, merchandiseId: string, quantity: number, sellingPlanId?: string) => `
 mutation {
   cartLinesAdd(
     cartId: "${cartId}"
-    lines: [{ merchandiseId: "${merchandiseId}", quantity: ${quantity} }]
+    lines: [{ merchandiseId: "${merchandiseId}", quantity: ${quantity}${sellingPlanId ? `, sellingPlanId: "${sellingPlanId}"` : ''} }]
   ) {
     cart {
       ${cartLinesFragment}
@@ -222,11 +223,34 @@ const sanaLymphProductQuery = `
                       }
                     }
                   }
+                  sellingPlanGroups(first: 5) {
+                    edges {
+                      node {
+                        sellingPlans(first: 5) {
+                          edges {
+                            node {
+                              id
+                              name
+                              priceAdjustments {
+                                adjustmentValue {
+                                  ... on SellingPlanPercentagePriceAdjustment {
+                                    adjustmentPercentage
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           }
         `
+
+
 export async function fetchProductData(): Promise<ProductsResponse> {
    const response = await fetch(STORE_ENDPOINT + '/api/2024-01/graphql.json',
        {
@@ -252,8 +276,8 @@ async function shopifyFetch(query: string) {
     return response.json();
 }
 
-export async function createCart(merchandiseId: string, quantity: number): Promise<CartCreateResponse> {
-    return shopifyFetch(cartCreateQuery(quantity, merchandiseId));
+export async function createCart(merchandiseId: string, quantity: number, sellingPlanId?: string): Promise<CartCreateResponse> {
+    return shopifyFetch(cartCreateQuery(quantity, merchandiseId, sellingPlanId));
 }
 
 export async function fetchCart(cartId: string): Promise<CartFetchResponse> {
@@ -268,8 +292,8 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
     return shopifyFetch(removeCartLinesQuery(cartId, lineIds));
 }
 
-export async function addLineToCart(cartId: string, merchandiseId: string, quantity: number): Promise<CartLinesAddResponse> {
-    return shopifyFetch(addCartLineQuery(cartId, merchandiseId, quantity));
+export async function addLineToCart(cartId: string, merchandiseId: string, quantity: number, sellingPlanId?: string): Promise<CartLinesAddResponse> {
+    return shopifyFetch(addCartLineQuery(cartId, merchandiseId, quantity, sellingPlanId));
 }
 
 export async function addNoteToCart(cartId: string, content: string){

@@ -123,7 +123,7 @@ export default function Product() {
     ];
 
     const [selectedPackage, setSelectedPackage] = useState<ProductPackage['id'] | null>();
-    const [purchaseType, _setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
+    const [purchaseType, setPurchaseType] = useState<'onetime' | 'subscribe'>('onetime');
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [carouselApi, setCarouselApi] = useState<any>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -155,7 +155,7 @@ export default function Product() {
         if(pkg && productId){
             const quantity = pkg.bottles;
             setSelectedPackage(pkgId)
-            await addToCart(productId, quantity);
+            await addToCart(productId, quantity, purchaseType === 'subscribe' ? pkg.sellingPlanId ?? undefined : undefined);
             if(isPreOrder && releaseDate){
                 await addCartNote(`This is a pre-order item and will ship on ${releaseDate}`)
             }
@@ -285,55 +285,56 @@ export default function Product() {
                             </div>
                         </div>
 
-                        {/* Purchase Type Selection
-                        // <div>
-                        //     <h3 className="font-semibold text-[#1B5E20] mb-4">Purchase Type:</h3>
-                        //     <div className="grid grid-cols-2 gap-3 mb-6">
-                        //         <Card
-                        //             className={`cursor-pointer transition-all ${
-                        //                 purchaseType === 'onetime'
-                        //                     ? 'border-[#4CAF50] border-2 shadow-md'
-                        //                     : 'border-[#D7E5D7] hover:border-[#4CAF50]'
-                        //             }`}
-                        //             onClick={() => setPurchaseType('onetime')}
-                        //         >
-                        //             <CardContent className="p-4 text-center">
-                        //                 <input
-                        //                     placeholder='onetime'
-                        //                     type="radio"
-                        //                     checked={purchaseType === 'onetime'}
-                        //                     onChange={() => setPurchaseType('onetime')}
-                        //                     className="mb-2"
-                        //                 />
-                        //                 <h4 className="font-semibold text-[#1B5E20]">One-Time Purchase</h4>
-                        //                 <p className="text-xs text-[#6B7D6B] mt-1">Pay once, no commitment</p>
-                        //             </CardContent>
-                        //         </Card>
-                        //         <Card
-                        //             className={`cursor-pointer transition-all ${
-                        //                 purchaseType === 'subscribe'
-                        //                     ? 'border-[#4CAF50] border-2 shadow-md'
-                        //                     : 'border-[#D7E5D7] hover:border-[#4CAF50]'
-                        //             }`}
-                        //             onClick={() => setPurchaseType('subscribe')}
-                        //         >
-                        //             <CardContent className="p-4 text-center relative">
-                        //                 <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#4CAF50] text-white text-xs">
-                        //                     Extra Savings
-                        //                 </Badge>
-                        //                 <input
-                        //                     title='subscribe-onetime-purchase'
-                        //                     type="radio"
-                        //                     checked={purchaseType === 'subscribe'}
-                        //                     onChange={() => setPurchaseType('subscribe')}
-                        //                     className="mb-2"
-                        //                 />
-                        //                 <h4 className="font-semibold text-[#1B5E20]">Subscribe & Save</h4>
-                        //                 <p className="text-xs text-[#6B7D6B] mt-1">Save up to 41%</p>
-                        //             </CardContent>
-                        //         </Card>
-                        //     </div>
-                        // </div> */}
+                        {
+                        <div>
+                            <h3 className="font-semibold text-[#1B5E20] mb-4">Purchase Type:</h3>
+                            <div className="grid grid-cols-2 gap-3 mb-6">
+                                <Card
+                                    className={`cursor-pointer transition-all ${
+                                        purchaseType === 'onetime'
+                                            ? 'border-[#4CAF50] border-2 shadow-md'
+                                            : 'border-[#D7E5D7] hover:border-[#4CAF50]'
+                                    }`}
+                                    onClick={() => setPurchaseType('onetime')}
+                                >
+                                    <CardContent className="p-4 text-center">
+                                        <input
+                                            placeholder='onetime'
+                                            type="radio"
+                                            checked={purchaseType === 'onetime'}
+                                            onChange={() => setPurchaseType('onetime')}
+                                            className="mb-2"
+                                        />
+                                        <h4 className="font-semibold text-[#1B5E20]">One-Time Purchase</h4>
+                                        <p className="text-xs text-[#6B7D6B] mt-1">Pay once, no commitment</p>
+                                    </CardContent>
+                                </Card>
+                                <Card
+                                    className={`cursor-pointer transition-all ${
+                                        purchaseType === 'subscribe'
+                                            ? 'border-[#4CAF50] border-2 shadow-md'
+                                            : 'border-[#D7E5D7] hover:border-[#4CAF50]'
+                                    }`}
+                                    onClick={() => setPurchaseType('subscribe')}
+                                >
+                                    <CardContent className="p-4 text-center relative">
+                                        <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#4CAF50] text-white text-xs">
+                                            Extra Savings
+                                        </Badge>
+                                        <input
+                                            title='subscribe-onetime-purchase'
+                                            type="radio"
+                                            checked={purchaseType === 'subscribe'}
+                                            onChange={() => setPurchaseType('subscribe')}
+                                            className="mb-2"
+                                        />
+                                        <h4 className="font-semibold text-[#1B5E20]">Subscribe & Save</h4>
+                                        <p className="text-xs text-[#6B7D6B] mt-1">Save up to 41%</p>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </div>
+                        }
 
                         {/* Package Selection */}
                         <div>

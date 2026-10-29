@@ -21,10 +21,10 @@ type CartContextProps = {
 export default function CartProvider(props: CartContextProps){
     const [cart, setCart] = useState<Cart | null>(null);
 
-    async function addToCart(merchandiseId: string, quantity: number){
+    async function addToCart(merchandiseId: string, quantity: number, sellingPlanId?: string){
         const cartId = sessionStorage.getItem('cartId');
         if (!cartId) {
-            const response = await createCart(merchandiseId, quantity);
+            const response = await createCart(merchandiseId, quantity, sellingPlanId);
             const newCart = response.data.cartCreate.cart;
             sessionStorage.setItem('cartId', newCart.id);
             setCart(newCart);
@@ -33,7 +33,7 @@ export default function CartProvider(props: CartContextProps){
         const freshCartResponse = await fetchCart(cartId);
         const freshCart = freshCartResponse.data.cart;
         if (!freshCart) {
-            const response = await createCart(merchandiseId, quantity);
+            const response = await createCart(merchandiseId, quantity, sellingPlanId);
             const newCart = response.data.cartCreate.cart;
             sessionStorage.setItem('cartId', newCart.id);
             setCart(newCart);
@@ -43,7 +43,7 @@ export default function CartProvider(props: CartContextProps){
         if (existingLineIds.length > 0) {
             await deleteFromCart(cartId, existingLineIds);
         }
-        const response = await addLineToCart(cartId, merchandiseId, quantity);
+        const response = await addLineToCart(cartId, merchandiseId, quantity, sellingPlanId);
         setCart(response.data.cartLinesAdd.cart);
     }
     async function addCartNote(content: string){

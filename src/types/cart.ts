@@ -71,10 +71,10 @@ export type CartRemoveResponse = {
 
 export type CartContextType = {
     cart: Cart | null;
-    addToCart: (merchandiseId: string, quantity: number) => Promise<void>;
+    addToCart: (merchandiseId: string, quantity: number, sellingPlanId?: string) => Promise<void>;
     removeFromCart: (merchandiseId: string, quantity: number) => void;
     buyNow: (merchandiseId: string, quantity: number) => void;
     redirectToCheckout: () => void;
-    addCartNote: (content: string) => void
+    addCartNote: (content: string) => Promise<void>
 
 };

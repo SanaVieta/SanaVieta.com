@@ -9,6 +9,7 @@ export type ProductPackage = {
     subscribePricePerBottle: number;
     savings: number;
     subscribeSavings: number;
+    sellingPlanId: string | null;
     badge: string;
     frequency: string;
     popular?: boolean;

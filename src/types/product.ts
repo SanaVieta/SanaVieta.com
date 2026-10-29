@@ -15,6 +15,20 @@ export type ProductVariant = {
   availableForSale: boolean;
 };
 
+export type SellingPlan = {
+  id: string;
+  name: string;
+  priceAdjustments: {
+    adjustmentValue: {
+      adjustmentPercentage?: number;
+    };
+  }[];
+};
+
+export type SellingPlanGroup = {
+  sellingPlans: { edges: { node: SellingPlan }[] };
+};
+
 export type ProductNode = {
   id: string;
   title: string;
@@ -28,6 +42,7 @@ export type ProductNode = {
   }
   images: { edges: { node: ProductImage }[] };
   variants: { edges: { node: ProductVariant }[] };
+  sellingPlanGroups: { edges: { node: SellingPlanGroup }[] };
 };
 
 export type ProductEdge = {
