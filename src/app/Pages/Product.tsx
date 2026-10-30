@@ -100,10 +100,10 @@ export default function Product() {
             question: 'How long does it take to see results?',
             answer: 'Individual results may vary. Most users report noticing improvements in comfort and fluid balance within 2-4 weeks of consistent use. For optimal results, we recommend taking SanaLymph daily for at least 90 days.',
         },
-        // {
-        //     question: 'How does the Subscribe & Save option work?',
-        //     answer: 'With Subscribe & Save, you receive automatic deliveries based on your package size (1 bottle every 30 days, 3 bottles every 3 months, 6 bottles every 6 months, or 12 bottles every year) at a discounted price (save up to 41%). You can cancel, pause, or modify your subscription anytime - no commitments or penalties. Plus, you get free shipping on all subscription orders.',
-        // },
+        {
+            question: 'How does the Subscribe & Save option work?',
+            answer: 'With Subscribe & Save, you receive automatic deliveries based on your package size (1 bottle every 30 days, 3 bottles every 3 months, 6 bottles every 6 months, or 12 bottles every year) at a discounted price (save up to 41%). You can cancel, pause, or modify your subscription anytime - no commitments or penalties. Plus, you get free shipping on all subscription orders.',
+        },
         {
             question: 'Are there any side effects?',
             answer: 'SanaLymph is formulated with natural ingredients and is generally well-tolerated. However, as with any supplement, some individuals may experience mild digestive changes. If you have any concerns or are taking medications, please consult your healthcare provider before use.',
